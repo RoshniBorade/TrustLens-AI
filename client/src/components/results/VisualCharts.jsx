@@ -88,6 +88,7 @@ export default function VisualCharts({ metrics, claims = [] }) {
                 outerRadius={85}
                 paddingAngle={4}
                 dataKey="value"
+                isAnimationActive={false}
               >
                 {distributionData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} stroke="#0f172a" strokeWidth={2} />
@@ -127,6 +128,7 @@ export default function VisualCharts({ metrics, claims = [] }) {
                 dataKey="confidence" 
                 radius={[6, 6, 0, 0]}
                 fill="#38bdf8"
+                isAnimationActive={false}
               >
                 {confidenceData.map((entry, index) => {
                   const fill = 

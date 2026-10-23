@@ -11,16 +11,17 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { getEvaluationHistory } from '../../services/evaluationService';
+import { MOCK_EVALUATIONS } from '../../mock/mockEvaluations';
 import StatusBadge from '../common/StatusBadge';
 import EmptyState from '../common/EmptyState';
 
 export default function EvaluationHistory({ onSelectReport }) {
-  const [historyList, setHistoryList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [historyList, setHistoryList] = useState(MOCK_EVALUATIONS);
+  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   const loadHistory = async () => {
-    setLoading(true);
+    if (historyList.length === 0) setLoading(true);
     try {
       const data = await getEvaluationHistory();
       setHistoryList(data);

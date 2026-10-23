@@ -12,12 +12,42 @@ import { fetchServerHealth } from './services/api';
 import { MOCK_EVALUATIONS } from './mock/mockEvaluations';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('overview');
+  const getInitialTab = () => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '');
+      if (['overview', 'evaluate', 'results', 'history', 'architecture'].includes(hash)) {
+        return hash;
+      }
+    }
+    return 'overview';
+  };
+
+  const [activeTab, setActiveTab] = useState(getInitialTab);
   // Initialize with seed evaluation 001 so the user can immediately inspect results if desired
   const [currentReport, setCurrentReport] = useState(MOCK_EVALUATIONS[0]);
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [backendHealthy, setBackendHealthy] = useState(false);
   const [globalError, setGlobalError] = useState(null);
+
+  // Sync activeTab with URL hash for deep linking
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['overview', 'evaluate', 'results', 'history', 'architecture'].includes(hash)) {
+        setActiveTab(hash);
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  const changeTab = (tab) => {
+    setGlobalError(null);
+    setActiveTab(tab);
+    if (typeof window !== 'undefined') {
+      window.location.hash = tab;
+    }
+  };
 
   // Poll server health on load
   useEffect(() => {
@@ -38,7 +68,7 @@ export default function App() {
     try {
       const result = await runEvaluation(formData);
       setCurrentReport(result);
-      setActiveTab('results');
+      changeTab('results');
     } catch (err) {
       console.error('Evaluation run failed:', err);
       setGlobalError(err.message || 'Evaluation failed. Please try again.');
@@ -50,9 +80,9 @@ export default function App() {
   const handleSelectHistoryReport = (report) => {
     if (report) {
       setCurrentReport(report);
-      setActiveTab('results');
+      changeTab('results');
     } else {
-      setActiveTab('evaluate');
+      changeTab('evaluate');
     }
   };
 
@@ -61,10 +91,7 @@ export default function App() {
       {/* Sidebar Navigation */}
       <Sidebar
         activeTab={activeTab}
-        onSelectTab={(tab) => {
-          setGlobalError(null);
-          setActiveTab(tab);
-        }}
+        onSelectTab={changeTab}
         hasCurrentResults={!!currentReport}
       />
 
@@ -95,7 +122,7 @@ export default function App() {
           ) : (
             <>
               {activeTab === 'overview' && (
-                <ProjectOverview onStartEvaluation={() => setActiveTab('evaluate')} />
+                <ProjectOverview onStartEvaluation={() => changeTab('evaluate')} />
               )}
 
               {activeTab === 'evaluate' && (
@@ -108,7 +135,7 @@ export default function App() {
               {activeTab === 'results' && (
                 <ResultsReport
                   report={currentReport}
-                  onNewEvaluation={() => setActiveTab('evaluate')}
+                  onNewEvaluation={() => changeTab('evaluate')}
                 />
               )}
 

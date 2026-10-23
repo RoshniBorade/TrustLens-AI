@@ -19,8 +19,6 @@ const LOCAL_STORAGE_KEY = 'trustlens_evaluation_history';
  */
 export async function getEvaluationHistory() {
   if (IS_MOCK_MODE) {
-    // Artificial latency for realistic async state testing
-    await new Promise((resolve) => setTimeout(resolve, 300));
     const local = localStorage.getItem(LOCAL_STORAGE_KEY);
     const storedRuns = local ? JSON.parse(local) : [];
     // Combine mock base with local runs, deduplicated by ID
