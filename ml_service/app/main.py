@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
 from app.config import settings
-from app.routes import health, claims, evidence
+from app.routes import health, claims, evidence, verification
 
 # Setup logging
 logging.basicConfig(
@@ -85,6 +85,7 @@ async def general_exception_handler(request: Request, exc: Exception):
 app.include_router(health.router)
 app.include_router(claims.router)
 app.include_router(evidence.router)
+app.include_router(verification.router)
 
 
 @app.get("/")

@@ -35,7 +35,26 @@ async function checkMLHealth() {
   }
 }
 
+/**
+ * Calls FastAPI ML service to verify claims against retrieved evidence using NLI.
+ */
+async function verifyClaimsWithML(payload) {
+  try {
+    const response = await mlClient.post('/api/v1/verify', payload);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      const err = new Error(error.response.data?.detail || 'ML Service Verification Error');
+      err.statusCode = error.response.status;
+      err.code = 'ML_SERVICE_ERROR';
+      throw err;
+    }
+    throw error;
+  }
+}
+
 module.exports = {
   mlClient,
   checkMLHealth,
+  verifyClaimsWithML,
 };

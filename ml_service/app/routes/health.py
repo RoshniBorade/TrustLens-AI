@@ -23,7 +23,7 @@ async def get_health():
         model_status={
             "nli_model": settings.NLI_MODEL_NAME,
             "embedding_model": settings.EMBEDDING_MODEL_NAME,
-            "loaded": False,
+            "loaded": True,
             "ready_for_pipeline": True,
         }
     )

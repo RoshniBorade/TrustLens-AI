@@ -1,16 +1,24 @@
-﻿const { body, param, query, validationResult } = require('express-validator');
+const { body, param, query, validationResult } = require('express-validator');
 
 /**
  * Validation chains for submitting a new evaluation.
  * Limits input size to prevent abuse.
  */
 const evaluationSubmitRules = [
-  body('question')
-    .isString().withMessage('question must be a string')
-    .isLength({ min: 1, max: 2000 }).withMessage('question length must be 1-2000 characters'),
-  body('aiResponse')
-    .isString().withMessage('aiResponse must be a string')
-    .isLength({ min: 1, max: 8000 }).withMessage('aiResponse length must be 1-8000 characters'),
+  body().custom((value, { req }) => {
+    const q = req.body.question || req.body.query;
+    const r = req.body.aiResponse || req.body.responseText;
+    if (!r || typeof r !== 'string' || r.trim().length === 0) {
+      throw new Error('aiResponse or responseText is required and must be a non-empty string');
+    }
+    if (r.length > 8000) {
+      throw new Error('aiResponse/responseText length cannot exceed 8000 characters');
+    }
+    if (q && q.length > 2000) {
+      throw new Error('question/query length cannot exceed 2000 characters');
+    }
+    return true;
+  }),
 ];
 
 /** Pagination rules for list endpoint */
