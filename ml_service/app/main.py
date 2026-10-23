@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
 from app.config import settings
-from app.routes import health
+from app.routes import health, claims
 
 # Setup logging
 logging.basicConfig(
@@ -83,6 +83,7 @@ async def general_exception_handler(request: Request, exc: Exception):
 
 # Register routes
 app.include_router(health.router)
+app.include_router(claims.router)
 
 
 @app.get("/")
