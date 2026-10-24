@@ -6,10 +6,11 @@
 
 const Evaluation = require('../models/Evaluation.model');
 const { verifyClaimsWithML } = require('../services/mlService');
+const { isDbConnected } = require('../config/db');
 
 /**
  * Submits a new text evaluation.
- * Calls FastAPI ML service, formats result, and persists into MongoDB.
+ * Calls FastAPI ML service, formats result, and persists into MongoDB if connected.
  */
 async function submitEvaluation(req, res, next) {
   try {
@@ -54,8 +55,7 @@ async function submitEvaluation(req, res, next) {
       } : null,
     }));
 
-    // Create MongoDB document
-    const evaluationDoc = await Evaluation.create({
+    const evaluationPayload = {
       evaluationId: evalId,
       question: finalQuestion,
       aiResponse: finalResponseText,
@@ -76,12 +76,30 @@ async function submitEvaluation(req, res, next) {
       processingTimeMs: Math.round((mlData.evaluation_time_seconds || 0) * 1000),
       modelUsed: 'cross-encoder/nli-deberta-v3-small',
       claims: formattedClaims,
-    });
+    };
+
+    let evaluationDoc = null;
+    let dbPersisted = false;
+
+    if (isDbConnected()) {
+      try {
+        evaluationDoc = await Evaluation.create(evaluationPayload);
+        dbPersisted = true;
+      } catch (dbErr) {
+        console.warn(`[Database Warning] Could not persist evaluation: ${dbErr.message}`);
+      }
+    } else {
+      console.warn('[Database Warning] MongoDB offline; evaluation computed without persistence.');
+    }
 
     res.status(201).json({
       success: true,
-      data: evaluationDoc,
+      data: evaluationDoc || {
+        ...evaluationPayload,
+        createdAt: new Date().toISOString(),
+      },
       raw_ml_response: mlData,
+      persisted: dbPersisted,
     });
   } catch (err) {
     next(err);
@@ -96,6 +114,15 @@ async function listEvaluations(req, res, next) {
     const page = parseInt(req.query.page, 10) || 1;
     const limit = Math.min(parseInt(req.query.limit, 10) || 10, 50);
     const skip = (page - 1) * limit;
+
+    if (!isDbConnected()) {
+      return res.json({
+        success: true,
+        data: [],
+        meta: { page: 1, limit, total: 0, totalPages: 0 },
+        warning: 'Database offline. Evaluation history temporarily unavailable.',
+      });
+    }
 
     const total = await Evaluation.countDocuments();
     const records = await Evaluation.find()
@@ -125,6 +152,17 @@ async function listEvaluations(req, res, next) {
 async function getEvaluation(req, res, next) {
   try {
     const { id } = req.params;
+
+    if (!isDbConnected()) {
+      return res.status(503).json({
+        success: false,
+        error: {
+          code: 'DATABASE_UNAVAILABLE',
+          message: 'Database is currently offline. Cannot retrieve saved report.',
+        },
+      });
+    }
+
     const record = await Evaluation.findOne({
       $or: [{ evaluationId: id }, { _id: id.match(/^[0-9a-fA-F]{24}$/) ? id : null }],
     }).lean();

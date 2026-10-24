@@ -1,216 +1,328 @@
 # TrustLens AI: AI Reliability & Hallucination Evaluation Platform
 
-An academic platform engineered to evaluate the factual reliability of AI-generated responses. Instead of relying on a black-box percentage or ungrounded language model judgments, TrustLens decomposes AI responses into atomic claims, retrieves verifiable evidence from curated and open-domain knowledge bases, performs Natural Language Inference (NLI) with transformer models, and produces an explainable reliability audit.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/Node.js-v22.14.0-green.svg)](https://nodejs.org/)
+[![Python](https://img.shields.io/badge/Python-3.12.7-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-teal.svg)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18.2.0-cyan.svg)](https://react.dev/)
+[![DeBERTa-v3](https://img.shields.io/badge/Model-DeBERTa--v3--small-orange.svg)](https://huggingface.co/cross-encoder/nli-deberta-v3-small)
+
+**TrustLens AI** is an academic platform engineered to evaluate the factual reliability of AI-generated responses through transparent, multi-stage natural language inference. Instead of evaluating text with opaque LLM self-evaluations or uncalibrated confidence percentages, TrustLens:
+1. Decomposes unstructured AI text into **atomic verifiable claims**.
+2. Retrieves relevant evidence passages from a **local ChromaDB semantic vector index** and live **Wikipedia API**.
+3. Verifies each claim using a cross-encoder Natural Language Inference (NLI) model (`cross-encoder/nli-deberta-v3-small`).
+4. Computes a transparent **Reliability Index** and **Hallucination Rate** with explicit mathematical formulas and limitations caveats.
+5. Persists evaluation audits in **MongoDB** for historical review and tracking.
 
 ---
 
-## 1. System Architecture & Monorepo Structure
+## 1. System Architecture
+
+```mermaid
+flowchart TD
+    User([User / Browser]) <-->|HTTP / JSON :5173| Frontend[React.js Client + Vite]
+    Frontend <-->|REST API :5000| Backend[Express.js Server]
+    
+    subgraph Express Backend Layer [:5000]
+        Backend --> RateLimiter[In-Memory Rate Limiter]
+        RateLimiter --> Validator[Input Validation & Bounds]
+        Validator --> EvalCtrl[Evaluation Controller]
+        EvalCtrl <-->|Mongoose / ODM| Mongo[(MongoDB :27017)]
+        EvalCtrl <-->|Axios Client 60s Timeout| MLClient[Inter-Service ML Client]
+    end
+
+    subgraph Python AI / ML Service [:8000]
+        MLClient <-->|POST /api/v1/verify| FastAPI[FastAPI Microservice]
+        FastAPI --> Extractor[Atomic Claim Extractor<br/>(NLTK POS + Rule Decomposer)]
+        Extractor --> Retriever[Evidence Retriever]
+        Retriever <-->|Dense Semantic Cosine Search| Chroma[(ChromaDB Vector Store<br/>all-MiniLM-L6-v2)]
+        Retriever <-->|REST Query| Wiki[Wikipedia API]
+        Retriever --> Verifier[NLI Cross-Encoder Verifier<br/>(DeBERTa-v3-small)]
+        Verifier --> ConflictRes[Conflict Resolution Engine]
+        ConflictRes --> MetricsCalc[Academic Metrics Calculator]
+    end
+
+    MetricsCalc --> EvalCtrl
+```
+
+---
+
+## 2. Monorepo Structure
 
 ```
 TrustLens-AI/
-├── client/                     # Frontend User Interface (React.js, Vite, Tailwind CSS)
+├── client/                     # Frontend Client (React.js, Vite, Tailwind CSS)
 │   ├── src/
-│   │   ├── services/api.js     # Client API connector
-│   │   ├── App.jsx             # Health dashboard & evaluation workbench
-│   │   └── main.jsx
-│   ├── .env.example
+│   │   ├── components/         # Modular UI (Evaluate, Results, History, Cluster)
+│   │   ├── services/           # Live API client with error interceptors
+│   │   └── App.jsx             # Main workbench and dashboard controller
 │   └── package.json
 │
 ├── server/                     # Application Backend (Node.js, Express.js, MongoDB)
 │   ├── src/
-│   │   ├── config/             # DB & Environment configuration
-│   │   ├── middleware/         # Logging and centralized error handling
-│   │   ├── routes/             # Health and REST API routing
-│   │   ├── services/           # Inter-service client for Python ML Engine
+│   │   ├── config/             # DB & Environment variables with fallbacks
+│   │   ├── controllers/        # Evaluation controller with DB outage resilience
+│   │   ├── middleware/         # Rate limiting, validation, error handling
+│   │   ├── models/             # Mongoose schemas (Evaluation, Claims, Metrics)
+│   │   ├── routes/             # REST endpoints (/health, /api/v1/evaluations)
 │   │   └── server.js           # Server bootstrap
-│   ├── .env.example
+│   ├── tests/                  # Integration tests (Node.js native test runner)
 │   └── package.json
 │
-└── ml_service/                 # AI & Machine Learning Microservice (Python, FastAPI)
-    ├── app/
-    │   ├── config.py           # Pydantic Settings
-    │   ├── schemas/            # API contracts (Claim, Evidence, Verification)
-    │   ├── routes/             # Health and verification routes
-    │   └── main.py             # FastAPI entry point
-    ├── requirements.txt
-    └── .env.example
+├── ml_service/                 # AI & NLP Microservice (Python, FastAPI, PyTorch)
+│   ├── app/
+│   │   ├── routes/             # Verification, claims, evidence, metrics, robustness
+│   │   ├── schemas/            # Pydantic data contracts and validation limits
+│   │   ├── services/           # Extractor, Retriever, VectorStore, NLIVerifier
+│   │   └── main.py             # FastAPI entrypoint
+│   ├── data/                   # ChromaDB storage & 40-sample benchmark dataset
+│   ├── experiments/            # Saved reproducibility artifacts & failure logs
+│   ├── tests/                  # Automated pytest suite (42 tests)
+│   ├── run_robustness_experiments.py # Reproducibility benchmark runner CLI
+│   └── requirements.txt
+│
+└── docs/                       # Academic specifications and benchmark reports
+    ├── METRICS_METHODOLOGY.md  # Mathematical formulas and denominator rationale
+    ├── ROBUSTNESS_FRAMEWORK.md # Annotation guidelines and stress-test categories
+    └── EXPERIMENTAL_RESULTS.md # Live measured results, confusion matrix, charts
 ```
 
 ---
 
-## 2. Formal API Contracts (Inter-Service)
+## 3. Hardware Requirements & Model Specifications
 
-### A. Health & Status Probe
-* **ML Microservice (`GET http://localhost:8000/health`)**
-  ```json
-  {
-    "status": "healthy",
-    "service": "trustlens-ml-service",
-    "version": "1.0.0",
-    "environment": "development",
-    "timestamp": "2026-10-23T10:15:00Z",
-    "uptime_seconds": 12.4,
-    "model_status": {
-      "nli_model": "cross-encoder/nli-deberta-v3-small",
-      "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
-      "loaded": false,
-      "ready_for_pipeline": true
-    }
-  }
-  ```
+| Component | Model Checkpoint | License | Parameter Size | Memory / Footprint |
+|---|---|---|---|---|
+| **NLI Cross-Encoder** | `cross-encoder/nli-deberta-v3-small` | Apache 2.0 | 44 Million | ~180 MB RAM |
+| **Dense Embeddings** | `sentence-transformers/all-MiniLM-L6-v2` | Apache 2.0 | 22 Million | ~90 MB RAM (ONNX) |
+| **Vector Storage** | ChromaDB (Cosine similarity space) | Apache 2.0 | Local embedded | Persistent on disk |
 
-* **Application Server (`GET http://localhost:5000/health`)**
-  ```json
-  {
-    "status": "healthy",
-    "service": "trustlens-server",
-    "version": "1.0.0",
-    "timestamp": "2026-10-23T10:15:00Z",
-    "uptime_seconds": 35,
-    "components": {
-      "database": { "type": "MongoDB", "connected": true, "status": "connected" },
-      "ml_service": { "type": "Python/FastAPI", "connected": true, "latency_ms": 12 }
-    }
-  }
-  ```
-
-### B. Claim Verification Payload Schema (`POST /api/v1/verify-claims`)
-```json
-{
-  "query": "Who developed the transformer model and when?",
-  "response_text": "The transformer architecture was introduced by researchers at Google in 2017 in the paper Attention Is All You Need.",
-  "use_web_search": true
-}
-```
-**Response Contract:**
-```json
-{
-  "evaluation_id": "eval_65f412...",
-  "claims": [
-    {
-      "claim_id": "c1",
-      "claim_text": "The transformer architecture was introduced by researchers at Google.",
-      "status": "supported",
-      "confidence": 0.98,
-      "evidence": {
-        "id": "ev_1",
-        "text": "Vaswani et al. from Google Brain and Google Research presented the Transformer...",
-        "source_title": "Attention Is All You Need (Wikipedia)",
-        "similarity_score": 0.91
-      },
-      "explanation": "Premise entails hypothesis with 98% confidence."
-    }
-  ],
-  "metrics": {
-    "total_claims": 2,
-    "supported_claims": 2,
-    "contradicted_claims": 0,
-    "unverified_claims": 0,
-    "supported_proportion": 1.0,
-    "contradicted_proportion": 0.0,
-    "unverified_proportion": 0.0,
-    "reliability_index": 100.0,
-    "hallucination_rate": 0.0,
-    "unverified_rate": 0.0,
-    "strict_accuracy": 100.0,
-    "formula_definition": {
-      "reliability_index": "N_supported / (N_supported + N_contradicted + 0.5 * N_unverified) * 100",
-      "hallucination_rate": "N_contradicted / N_total"
-    },
-    "limitations_disclaimer": "The Reliability Index is an empirical grounding metric, not a calibrated Bayesian probability of absolute truth."
-  }
-}
-```
+* **Hardware Recommendation**: Modern multi-core CPU (Intel i5/i7 or Apple Silicon M-series), minimum 8 GB RAM. Dedicated GPU/CUDA is supported but **not required**; inference runs at ~200ms per pair on CPU with 4-thread Torch optimization.
+* **Model Download**: Models download automatically from Hugging Face on initial service startup and are cached locally in `~/.cache/huggingface/`.
 
 ---
 
-## 3. Quickstart & Installation
+## 4. Installation & Environment Setup
 
 ### Prerequisites
-* **Node.js**: v18+ (tested on v22.14.0)
-* **Python**: 3.10+ (tested on 3.12.7)
-* **MongoDB**: v6.0+ (running locally or MongoDB Atlas)
+- **Node.js**: v18.0.0 or higher (tested on v22.14.0)
+- **Python**: v3.10 or higher (tested on v3.12.7)
+- **MongoDB**: Community Server v6.0+ (running locally on port 27017 or remote Atlas URI)
+
+### Quick Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/RoshniBorade/TrustLens-AI.git
+cd TrustLens-AI
+
+# Install root, server, and client dependencies
+npm run install:all
+```
+
+### Environment Configuration
+
+1. **Server Configuration (`server/.env`)**:
+   ```env
+   PORT=5000
+   NODE_ENV=development
+   CLIENT_ORIGIN=http://localhost:5173
+   MONGODB_URI=mongodb://127.0.0.1:27017/trustlens_ai
+   ML_SERVICE_URL=http://localhost:8000
+   ML_SERVICE_TIMEOUT_MS=60000
+   ```
+
+2. **ML Service Configuration (`ml_service/.env`)**:
+   ```env
+   HOST=127.0.0.1
+   PORT=8000
+   ENVIRONMENT=development
+   CORS_ORIGINS=["http://localhost:5173","http://localhost:5000","http://127.0.0.1:5000"]
+   ```
+
+3. **Client Configuration (`client/.env`)**:
+   ```env
+   VITE_API_BASE_URL=http://localhost:5000/api/v1
+   ```
 
 ---
 
-### Step 1: Python ML Service Setup
+## 5. Starting the Services
+
+Run each service in a separate terminal:
+
+### Terminal 1: Python ML Service (Port 8000)
 ```bash
-# Navigate to ML service directory
 cd ml_service
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Start the ML service (Port 8000)
 uvicorn app.main:app --reload --port 8000
 ```
-*Health Check:* Open `http://localhost:8000/health` or interactive Swagger docs at `http://localhost:8000/docs`.
+*Health Check*: `http://localhost:8000/health`  
+*Interactive Swagger API Docs*: `http://localhost:8000/docs`
 
----
-
-### Step 2: Express Application Server Setup
+### Terminal 2: Express Application Server (Port 5000)
 ```bash
-# In a new terminal, navigate to server directory
 cd server
-
-# Install dependencies
-npm install
-
-# Start development server (Port 5000)
-npm run dev
+npm start
 ```
-*Health Check:* Open `http://localhost:5000/health` or `http://localhost:5000/api/v1/status`.
+*Health Check*: `http://localhost:5000/health`  
+*API Status*: `http://localhost:5000/api/v1/health`
 
----
-
-### Step 3: React Frontend Client Setup
+### Terminal 3: React Frontend Client (Port 5173)
 ```bash
-# In a third terminal, navigate to client directory
 cd client
-
-# Install dependencies
-npm install
-
-# Launch Vite development server (Port 5173)
 npm run dev
 ```
-*Access UI:* Open `http://localhost:5173` in your browser.
+*Access UI*: Open `http://localhost:5173` in your browser.
 
 ---
 
-## 4. Environment Variables Reference
+## 6. Document Ingestion Guide
 
-| Service | Variable | Default | Description |
-| :--- | :--- | :--- | :--- |
-| **server** | `PORT` | `5000` | Port for Express HTTP server |
-| **server** | `MONGODB_URI` | `mongodb://127.0.0.1:27017/trustlens_ai` | MongoDB connection string |
-| **server** | `ML_SERVICE_URL`| `http://localhost:8000` | URL of FastAPI microservice |
-| **ml_service** | `PORT` | `8000` | Port for FastAPI service |
-| **ml_service** | `NLI_MODEL_NAME`| `cross-encoder/nli-deberta-v3-small` | Hugging Face NLI model identifier |
-| **client** | `VITE_API_BASE_URL` | `http://localhost:5000/api/v1` | Backend API entrypoint |
+TrustLens allows ingesting custom reference documents into ChromaDB for local evidence grounding:
 
----
+### Ingestion via API
+```bash
+curl -X POST http://localhost:8000/api/v1/evidence/ingest   -H "Content-Type: application/json"   -d '{
+    "title": "Quantum Computing Fundamentals",
+    "content": "Quantum computers utilize qubits capable of superposition...",
+    "url": "https://example.org/quantum-paper"
+  }'
+```
 
-## 5. Reliability Scoring & System Evaluation Methodology
-
-TrustLens AI defines two distinct evaluation scopes:
-1. **Per-Response Reliability Summary**:
-   - Decomposes responses into atomic claims and calculates category proportions:
-     $$p_s = \frac{N_s}{N_{\text{total}}}, \quad p_c = \frac{N_c}{N_{\text{total}}}, \quad p_u = \frac{N_u}{N_{\text{total}}}$$
-   - Computes the **Reliability Index**:
-     $$\text{Reliability Index} = \frac{N_s}{N_s + N_c + 0.5 \times N_u} \times 100$$
-   - Displays the unverified proportion ($p_u$) separately to prevent treating unverified statements as proven falsehoods.
-   - Transparently caveats that the score measures empirical evidence corroboration rather than a calibrated Bayesian truth probability.
-
-2. **System-Performance Benchmark Evaluation**:
-   - Measures multi-class model accuracy on a 30-sample curated test dataset (`ml_service/data/benchmark_dataset.json`).
-   - Reports $3 \times 3$ **Confusion Matrix**, per-class Precision/Recall/F1, and Macro/Weighted averages.
-   - Formally defines the positive class for **Binary Hallucination Detection** as `contradicted`.
-   - Comprehensive methodology details: see [docs/METRICS_METHODOLOGY.md](docs/METRICS_METHODOLOGY.md).
+### Ingestion via UI
+Users can paste custom context directly into the **Reference Context** field in the web evaluation form. TrustLens chunks the text into overlapping sentence windows, embeds each window using `all-MiniLM-L6-v2`, and prioritizes it during claim verification.
 
 ---
 
-## 6. Academic Principles
-* **Evidence Grounding:** Claims are classified based on retrieved source premises, never purely on an LLM's opinion.
-* **Neutrality Principle:** Missing evidence maps strictly to **`Unverified`**, never to false **`Contradicted`**.
-* **Formulaic Transparency:** Reliability metrics are mathematically defined and traceable per claim.
+## 7. Running Tests & Reproducibility Suite
+
+TrustLens contains comprehensive automated test suites covering all architectural layers:
+
+### 1. Python ML Service Tests (Pytest)
+```bash
+# Run all 42 unit, verification, and benchmark tests
+npm run test:ml
+
+# Or directly via pytest in ml_service directory
+cd ml_service
+pytest tests/ -v
+```
+*Coverage*: Claim decomposition, qualifier preservation, vector retrieval, NLI verdicts, metric zero-division safety, 8-category robustness suite.
+
+### 2. Express Backend Integration Tests (Node.js Native Test Runner)
+```bash
+# Run backend integration tests
+npm run test:server
+
+# Or directly in server directory
+cd server
+npm test
+```
+*Coverage*: Health probes, 404 handler, input bounds validation, invalid ID format rejection, rate limiting headers.
+
+### 3. Reproducibility Experiment Runner CLI
+```bash
+cd ml_service
+python run_robustness_experiments.py
+```
+*Output*: Evaluates the 40-sample benchmark dataset live, outputs confusion matrices, per-category breakdown, baseline comparisons, and generates JSON artifacts in `ml_service/experiments/`.
+
+---
+
+## 8. Complete API Reference
+
+### Express Application Server (`http://localhost:5000`)
+| Method | Endpoint | Rate Limit | Description |
+|---|---|---|---|
+| `GET` | `/health` | None | Basic server liveness probe |
+| `GET` | `/api/v1/health` | 60 req/min | Component status (MongoDB connection & ML service latency) |
+| `POST`| `/api/v1/evaluations` | 20 req/min | Submits text response for full evaluation and saves to MongoDB |
+| `GET` | `/api/v1/evaluations` | 60 req/min | Paginated history of past evaluation audits |
+| `GET` | `/api/v1/evaluations/:id` | 60 req/min | Retrieves individual evaluation report by ID |
+
+### Python ML Service (`http://localhost:8000`)
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/health` | ML service liveness, uptime, and model load status |
+| `POST`| `/api/v1/verify` | End-to-end claim extraction, evidence retrieval, and NLI verification |
+| `POST`| `/api/v1/claims/extract` | Rule-based atomic claim decomposition |
+| `POST`| `/api/v1/evidence/retrieve`| Per-claim evidence retrieval (ChromaDB + Wikipedia) |
+| `POST`| `/api/v1/evidence/ingest` | Ingests reference text document into ChromaDB index |
+| `GET` | `/api/v1/evidence/sources` | Lists all indexed reference sources in local vector store |
+| `GET` | `/api/v1/metrics/dataset` | Returns reference 30-sample benchmark dataset |
+| `POST`| `/api/v1/metrics/evaluate`| Evaluates reference benchmark or custom test set |
+| `GET` | `/api/v1/robustness/dataset` | Returns 40-sample curated robustness test suite |
+| `GET` | `/api/v1/robustness/results` | Returns latest persisted benchmark metrics and failure analysis |
+| `POST`| `/api/v1/robustness/run` | Executes live evaluation across 8 robustness categories |
+
+---
+
+## 9. Reproducible Demo Scenario
+
+Follow this walkthrough to demonstrate the system end-to-end:
+
+### Scenario: Mixed Fact & Hallucination Evaluation
+1. Open the UI at `http://localhost:5173`.
+2. Enter the following test prompt into the **AI Evaluation Workbench**:
+   - **User Query**: `Tell me about France, Italy, and Mars.`
+   - **AI Response Text**:
+     ```
+     Paris is the capital of France. Rome is the capital of Italy. Meanwhile, Mars has vast oceans of liquid cheddar cheese covering its surface.
+     ```
+   - **External Knowledge**: Checked (Wikipedia enabled).
+3. Click **Analyze & Verify Reliability**.
+4. **Expected Output Verification**:
+   - **Claim 1**: *"Paris is the capital of France."* $ightarrow$ **Supported** (Entailment: ~99.7% via Wikipedia: Paris).
+   - **Claim 2**: *"Rome is the capital of Italy."* $ightarrow$ **Supported** (Entailment: ~99.6% via Wikipedia: Rome).
+   - **Claim 3**: *"Mars has vast oceans of liquid cheddar cheese..."* $ightarrow$ **Contradicted** (Contradiction: ~99.8% via Wikipedia: Mars).
+   - **Summary Scores**:
+     - Supported: 2 (66.7%)
+     - Contradicted: 1 (33.3%)
+     - Unverified: 0 (0.0%)
+     - **Reliability Index**: **66.67%**
+     - **Hallucination Rate**: **33.33%**
+5. Navigate to **Evaluation History** to confirm the record was persisted in MongoDB.
+
+---
+
+## 10. Implemented vs. Incomplete Features Checklist
+
+| Feature Area | Capability | Status | Implementation Details |
+|---|---|---|---|
+| **Claim Extraction** | Compound sentence decomposition | **Implemented** | Rule-based NLTK POS tagger + clause boundary splitter |
+| **Claim Extraction** | Conversational filler & disclaimer filtering | **Implemented** | Regex preambles & opinion filters (*"As an AI..."*) |
+| **Claim Extraction** | LLM-based neural claim decomposition | *Planned* | Future work: multi-hop coreference resolution |
+| **Evidence Retrieval** | Dense semantic vector retrieval | **Implemented** | ChromaDB with ONNX `all-MiniLM-L6-v2` |
+| **Evidence Retrieval** | Live encyclopedic web retrieval | **Implemented** | Real Wikipedia REST API with source link preservation |
+| **Evidence Retrieval** | Commercial Search API (Google/Bing) | *Planned* | Architecture supports pluggable providers via API keys |
+| **Claim Verification** | Cross-encoder NLI model | **Implemented** | `cross-encoder/nli-deberta-v3-small` (44M params) |
+| **Claim Verification** | Multi-source conflict detection | **Implemented** | Detects opposing entailment + contradiction across sources |
+| **Scoring & Metrics** | Transparent formula definition | **Implemented** | Explicit denominators; unverified $\neq$ false |
+| **Scoring & Metrics** | 3-class confusion matrix & binary detection | **Implemented** | Precision, Recall, F1, Balanced Accuracy |
+| **System Resilience** | In-memory sliding window rate limiting | **Implemented** | 20 req/min (submissions), 60 req/min (general API) |
+| **System Resilience** | Database outage graceful degradation | **Implemented** | Continues live evaluation with warning if MongoDB offline |
+| **System Resilience** | Input size bounding & truncation | **Implemented** | Bounded at 8,000 chars (server) and 15,000 chars (FastAPI) |
+| **User Authentication** | User accounts / OAuth2 / JWT login | *Planned* | Academic single-user workbench prototype |
+| **Multi-Lingual** | Non-English language support | *Planned* | Currently English-only tokenization and evidence retrieval |
+
+---
+
+## 11. Security & Quality Audit Summary
+
+- **Secrets Management**: No API keys or credentials are hardcoded. Environment variables use `.env` files with safe academic fallbacks.
+- **Input Validation**: Handled at both Express (`express-validator`) and FastAPI (`pydantic`) levels with character bounds, type checks, and regex sanitization.
+- **Database Outage Resilience**: If MongoDB is unavailable, Express catches connection errors gracefully and delivers live ML evaluation results with a `persisted: false` flag.
+- **Rate Limiting**: Custom sliding-window in-memory rate limiter protects endpoints against DoS abuse without external Redis dependencies.
+- **Error Leakage**: Stack traces are hidden from API responses in production mode (`process.env.NODE_ENV !== 'development'`).
+- **Dependencies**: Server packages report **0 vulnerabilities** on `npm audit`. Frontend devDependencies note standard Vite/PostCSS bundler warnings suitable for development.
+
+---
+
+## 12. Academic Disclaimer & Limitations
+
+> [!CAUTION]
+> **Academic Prototype Notice**:
+> TrustLens AI is an academic research platform designed for explainable AI evaluation experiments. It is **not** certified for production medical diagnosis, legal adjudication, or mission-critical factual verification.
+> 
+> The **Reliability Index** is an empirical measure of evidence corroboration relative to the queried reference corpus. It is **not** a calibrated Bayesian probability of absolute truth. An **Unverified** verdict indicates an absence of sufficient corroborating or refuting evidence within indexed sources, and must not be conflated with definitive factual falsehood.

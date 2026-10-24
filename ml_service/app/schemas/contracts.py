@@ -46,10 +46,10 @@ class ReliabilityMetrics(BaseModel):
 
 
 class EvaluationRequest(BaseModel):
-    query: Optional[str] = Field(None, description="The original prompt or question posed to the AI")
-    response_text: str = Field(..., min_length=5, description="The AI-generated response text to evaluate")
+    query: Optional[str] = Field(None, max_length=2000, description="The original prompt or question posed to the AI")
+    response_text: str = Field(..., min_length=5, max_length=15000, description="The AI-generated response text to evaluate")
     use_web_search: bool = Field(True, description="Whether to query trusted external knowledge (e.g. Wikipedia)")
-    reference_context: Optional[str] = Field(None, description="Optional custom reference document text")
+    reference_context: Optional[str] = Field(None, max_length=25000, description="Optional custom reference document text")
 
 
 class EvaluationResponse(BaseModel):

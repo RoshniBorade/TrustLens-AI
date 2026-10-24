@@ -7,6 +7,9 @@
     "dev:server": "npm --prefix server run dev",
     "dev:client": "npm --prefix client run dev",
     "dev:ml": "cd ml_service && uvicorn app.main:app --reload --port 8000",
+    "test:server": "npm --prefix server test",
+    "test:ml": "cd ml_service && python -m pytest tests/ -v",
+    "test": "npm run test:server && npm run test:ml",
     "install:all": "npm install && npm --prefix server install && npm --prefix client install"
   },
   "keywords": [
