@@ -1,0 +1,644 @@
+{
+  "timestamp": "2026-10-24T11:44:29.669451",
+  "elapsed_seconds": 8.3,
+  "total_samples": 40,
+  "claim_extraction": {
+    "precision": 0.9412,
+    "recall": 0.96,
+    "f1_score": 0.9505,
+    "gold_claims": 50,
+    "extracted_claims": 51,
+    "matched_claims": 48
+  },
+  "evidence_retrieval": {
+    "evaluated_queries": 40,
+    "semantic_pipeline": {
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "mrr": 1.0
+    },
+    "lexical_baseline": {
+      "hit_at_1": 0.875,
+      "hit_at_3": 1.0,
+      "mrr": 0.9333
+    }
+  },
+  "claim_verification_full_pipeline": {
+    "total_samples": 40,
+    "accuracy": 0.8,
+    "per_class": {
+      "supported": {
+        "precision": 1.0,
+        "recall": 0.8571,
+        "f1_score": 0.9231,
+        "support": 21
+      },
+      "contradicted": {
+        "precision": 0.6154,
+        "recall": 1.0,
+        "f1_score": 0.7619,
+        "support": 8
+      },
+      "unverified": {
+        "precision": 0.6667,
+        "recall": 0.5455,
+        "f1_score": 0.6,
+        "support": 11
+      }
+    },
+    "macro_avg": {
+      "precision": 0.7607,
+      "recall": 0.8009,
+      "f1_score": 0.7617,
+      "support": 40
+    },
+    "weighted_avg": {
+      "precision": 0.8314,
+      "recall": 0.8,
+      "f1_score": 0.802,
+      "support": 40
+    },
+    "confusion_matrix": {
+      "labels": [
+        "supported",
+        "contradicted",
+        "unverified"
+      ],
+      "matrix": [
+        [
+          18,
+          0,
+          3
+        ],
+        [
+          0,
+          8,
+          0
+        ],
+        [
+          0,
+          5,
+          6
+        ]
+      ],
+      "row_labels": [
+        "True: supported",
+        "True: contradicted",
+        "True: unverified"
+      ],
+      "col_labels": [
+        "Pred: supported",
+        "Pred: contradicted",
+        "Pred: unverified"
+      ]
+    },
+    "binary_hallucination_detection": {
+      "positive_class": "contradicted",
+      "true_positives": 8,
+      "false_positives": 5,
+      "true_negatives": 27,
+      "false_negatives": 0,
+      "precision": 0.6154,
+      "recall": 1.0,
+      "specificity": 0.8438,
+      "f1_score": 0.7619,
+      "balanced_accuracy": 0.9219
+    },
+    "evaluation_protocol": "Evaluated 40 samples across 8 stress conditions. Model: cross-encoder/nli-deberta-v3-small (thresholds: support=0.65, contradict=0.65). Multi-source conflict detection active.",
+    "disclaimer": "Benchmark metrics reflect performance against labeled reference test instances under standard NLI decision boundaries.",
+    "timestamp": "2026-10-24T11:44:37.964118+00:00"
+  },
+  "claim_verification_baseline": {
+    "total_samples": 40,
+    "accuracy": 0.675,
+    "per_class": {
+      "supported": {
+        "precision": 0.7619,
+        "recall": 0.7619,
+        "f1_score": 0.7619,
+        "support": 21
+      },
+      "contradicted": {
+        "precision": 0.7273,
+        "recall": 1.0,
+        "f1_score": 0.8421,
+        "support": 8
+      },
+      "unverified": {
+        "precision": 0.375,
+        "recall": 0.2727,
+        "f1_score": 0.3158,
+        "support": 11
+      }
+    },
+    "macro_avg": {
+      "precision": 0.6214,
+      "recall": 0.6782,
+      "f1_score": 0.6399,
+      "support": 40
+    },
+    "weighted_avg": {
+      "precision": 0.6486,
+      "recall": 0.675,
+      "f1_score": 0.6553,
+      "support": 40
+    },
+    "confusion_matrix": {
+      "labels": [
+        "supported",
+        "contradicted",
+        "unverified"
+      ],
+      "matrix": [
+        [
+          16,
+          0,
+          5
+        ],
+        [
+          0,
+          8,
+          0
+        ],
+        [
+          5,
+          3,
+          3
+        ]
+      ],
+      "row_labels": [
+        "True: supported",
+        "True: contradicted",
+        "True: unverified"
+      ],
+      "col_labels": [
+        "Pred: supported",
+        "Pred: contradicted",
+        "Pred: unverified"
+      ]
+    },
+    "binary_hallucination_detection": {
+      "positive_class": "contradicted",
+      "true_positives": 8,
+      "false_positives": 3,
+      "true_negatives": 29,
+      "false_negatives": 0,
+      "precision": 0.7273,
+      "recall": 1.0,
+      "specificity": 0.9062,
+      "f1_score": 0.8421,
+      "balanced_accuracy": 0.9531
+    },
+    "evaluation_protocol": "Baseline: Lexical Keyword Retrieval without Semantic Search or Multi-Source Conflict Resolution.",
+    "disclaimer": "Benchmark metrics reflect performance against labeled reference test instances under standard NLI decision boundaries.",
+    "timestamp": "2026-10-24T11:44:37.964118+00:00"
+  },
+  "per_category_breakdown": {
+    "supported_factual": {
+      "total": 5,
+      "correct_full": 4,
+      "correct_base": 4,
+      "predictions": [
+        {
+          "id": "rob-sup-01",
+          "expected": "supported",
+          "full_pred": "unverified",
+          "base_pred": "unverified"
+        },
+        {
+          "id": "rob-sup-02",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-sup-03",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-sup-04",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-sup-05",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        }
+      ],
+      "accuracy_full": 0.8,
+      "accuracy_base": 0.8
+    },
+    "contradicted_hallucination": {
+      "total": 5,
+      "correct_full": 5,
+      "correct_base": 5,
+      "predictions": [
+        {
+          "id": "rob-con-01",
+          "expected": "contradicted",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-con-02",
+          "expected": "contradicted",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-con-03",
+          "expected": "contradicted",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-con-04",
+          "expected": "contradicted",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-con-05",
+          "expected": "contradicted",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        }
+      ],
+      "accuracy_full": 1.0,
+      "accuracy_base": 1.0
+    },
+    "insufficient_evidence": {
+      "total": 5,
+      "correct_full": 3,
+      "correct_base": 3,
+      "predictions": [
+        {
+          "id": "rob-unv-01",
+          "expected": "unverified",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-unv-02",
+          "expected": "unverified",
+          "full_pred": "unverified",
+          "base_pred": "unverified"
+        },
+        {
+          "id": "rob-unv-03",
+          "expected": "unverified",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-unv-04",
+          "expected": "unverified",
+          "full_pred": "unverified",
+          "base_pred": "unverified"
+        },
+        {
+          "id": "rob-unv-05",
+          "expected": "unverified",
+          "full_pred": "unverified",
+          "base_pred": "unverified"
+        }
+      ],
+      "accuracy_full": 0.6,
+      "accuracy_base": 0.6
+    },
+    "paraphrased": {
+      "total": 5,
+      "correct_full": 4,
+      "correct_base": 2,
+      "predictions": [
+        {
+          "id": "rob-par-01",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-par-02",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "unverified"
+        },
+        {
+          "id": "rob-par-03",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "unverified"
+        },
+        {
+          "id": "rob-par-04",
+          "expected": "supported",
+          "full_pred": "unverified",
+          "base_pred": "unverified"
+        },
+        {
+          "id": "rob-par-05",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        }
+      ],
+      "accuracy_full": 0.8,
+      "accuracy_base": 0.4
+    },
+    "numerical_temporal": {
+      "total": 5,
+      "correct_full": 4,
+      "correct_base": 4,
+      "predictions": [
+        {
+          "id": "rob-num-01",
+          "expected": "supported",
+          "full_pred": "unverified",
+          "base_pred": "unverified"
+        },
+        {
+          "id": "rob-num-02",
+          "expected": "contradicted",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-num-03",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-num-04",
+          "expected": "contradicted",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-num-05",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        }
+      ],
+      "accuracy_full": 0.8,
+      "accuracy_base": 0.8
+    },
+    "noisy_ambiguous": {
+      "total": 5,
+      "correct_full": 5,
+      "correct_base": 5,
+      "predictions": [
+        {
+          "id": "rob-noi-01",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-noi-02",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-noi-03",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-noi-04",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-noi-05",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        }
+      ],
+      "accuracy_full": 1.0,
+      "accuracy_base": 1.0
+    },
+    "long_multiclaim": {
+      "total": 5,
+      "correct_full": 4,
+      "correct_base": 4,
+      "predictions": [
+        {
+          "id": "rob-lng-01",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-lng-02",
+          "expected": "contradicted",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-lng-03",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-lng-04",
+          "expected": "unverified",
+          "full_pred": "contradicted",
+          "base_pred": "contradicted"
+        },
+        {
+          "id": "rob-lng-05",
+          "expected": "supported",
+          "full_pred": "supported",
+          "base_pred": "supported"
+        }
+      ],
+      "accuracy_full": 0.8,
+      "accuracy_base": 0.8
+    },
+    "conflicting_evidence": {
+      "total": 5,
+      "correct_full": 3,
+      "correct_base": 0,
+      "predictions": [
+        {
+          "id": "rob-cnf-01",
+          "expected": "unverified",
+          "full_pred": "unverified",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-cnf-02",
+          "expected": "unverified",
+          "full_pred": "unverified",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-cnf-03",
+          "expected": "unverified",
+          "full_pred": "unverified",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-cnf-04",
+          "expected": "unverified",
+          "full_pred": "contradicted",
+          "base_pred": "supported"
+        },
+        {
+          "id": "rob-cnf-05",
+          "expected": "unverified",
+          "full_pred": "contradicted",
+          "base_pred": "supported"
+        }
+      ],
+      "accuracy_full": 0.6,
+      "accuracy_base": 0.0
+    }
+  },
+  "failure_analysis_summary": {
+    "total_failures": 8,
+    "failure_rate": 0.2,
+    "failures": [
+      {
+        "id": "rob-sup-01",
+        "category": "supported_factual",
+        "claim": "The Sun is at the center of the Solar System, and all planets orbit around it.",
+        "expected": "supported",
+        "predicted": "unverified",
+        "confidence": 0.9897,
+        "failure_mode": "Threshold Boundary Attenuation",
+        "root_cause": "Highest probability was 0.01, below the operational threshold of 0.65, defaulting safely to Unverified.",
+        "model_scores": {
+          "contradiction": 0.0003,
+          "entailment": 0.01,
+          "neutral": 0.9897
+        },
+        "evidence_used": "The Solar System is the gravitationally bound system of the Sun and the objects that orbit it, with the Sun situated at the center."
+      },
+      {
+        "id": "rob-unv-01",
+        "category": "insufficient_evidence",
+        "claim": "Fossilized microscopic fungi have been discovered beneath the methane dunes of Saturn's moon Titan.",
+        "expected": "unverified",
+        "predicted": "contradicted",
+        "confidence": 0.997,
+        "failure_mode": "Semantic Polarity Inversion",
+        "root_cause": "Model assigned higher weight to contradicted (1.00) over expected unverified.",
+        "model_scores": {
+          "contradiction": 0.997,
+          "entailment": 0.0,
+          "neutral": 0.0029
+        },
+        "evidence_used": "Saturn's moon Titan has prebiotic organic chemistry, but no space probe or scientific mission has ever detected fossils or biological organi"
+      },
+      {
+        "id": "rob-unv-03",
+        "category": "insufficient_evidence",
+        "claim": "A living plesiosaur family currently thrives in the depths of Loch Ness in Scotland.",
+        "expected": "unverified",
+        "predicted": "contradicted",
+        "confidence": 0.9949,
+        "failure_mode": "Semantic Polarity Inversion",
+        "root_cause": "Model assigned higher weight to contradicted (0.99) over expected unverified.",
+        "model_scores": {
+          "contradiction": 0.9949,
+          "entailment": 0.0,
+          "neutral": 0.005
+        },
+        "evidence_used": "The Loch Ness Monster is an unconfirmed cryptid whose sightings remain unproven by environmental DNA and sonar investigations, though folklo"
+      },
+      {
+        "id": "rob-par-04",
+        "category": "paraphrased",
+        "claim": "The Amazon biome spans extensively across the northern portion of the South American continent.",
+        "expected": "supported",
+        "predicted": "unverified",
+        "confidence": 0.9804,
+        "failure_mode": "Threshold Boundary Attenuation",
+        "root_cause": "Highest probability was 0.01, below the operational threshold of 0.65, defaulting safely to Unverified.",
+        "model_scores": {
+          "contradiction": 0.0069,
+          "entailment": 0.0127,
+          "neutral": 0.9804
+        },
+        "evidence_used": "The Amazon rainforest is a moist broadleaf tropical rainforest in the Amazon biome that covers most of the Amazon basin of South America."
+      },
+      {
+        "id": "rob-num-01",
+        "category": "numerical_temporal",
+        "claim": "World War II officially concluded in the year 1945 following the surrender of Axis powers.",
+        "expected": "supported",
+        "predicted": "unverified",
+        "confidence": 0.9716,
+        "failure_mode": "Numerical Sensitivity Borderline",
+        "root_cause": "Cross-encoder struggled to identify subtle numerical or date discrepancies without specialized arithmetic tokenization.",
+        "model_scores": {
+          "contradiction": 0.0002,
+          "entailment": 0.0282,
+          "neutral": 0.9716
+        },
+        "evidence_used": "World War II lasted from 1939 to 1945, officially ending on September 2, 1945, with the formal signing of surrender documents."
+      },
+      {
+        "id": "rob-lng-04",
+        "category": "long_multiclaim",
+        "claim": "Fish communicate using telepathic quantum brainwaves.",
+        "expected": "unverified",
+        "predicted": "contradicted",
+        "confidence": 0.9968,
+        "failure_mode": "Semantic Polarity Inversion",
+        "root_cause": "Model assigned higher weight to contradicted (1.00) over expected unverified.",
+        "model_scores": {
+          "contradiction": 0.9968,
+          "entailment": 0.0002,
+          "neutral": 0.003
+        },
+        "evidence_used": "Fish communicate using acoustic signals, bioluminescence, movement displays, and chemical pheromones; telepathic quantum communication is un"
+      },
+      {
+        "id": "rob-cnf-04",
+        "category": "conflicting_evidence",
+        "claim": "King Richard III of England directly ordered the execution of the two Princes in the Tower.",
+        "expected": "unverified",
+        "predicted": "contradicted",
+        "confidence": 0.9889,
+        "failure_mode": "Multi-Source Conflict Resolution Failure",
+        "root_cause": "One of the conflicting passages failed to exceed decision threshold (Entailment: 0.00, Contradiction: 0.99).",
+        "model_scores": {
+          "contradiction": 0.9889,
+          "entailment": 0.0,
+          "neutral": 0.011
+        },
+        "evidence_used": "Modern archival research reveals no direct contemporary evidence connecting Richard III to the disappearance of the princes, and records ind"
+      },
+      {
+        "id": "rob-cnf-05",
+        "category": "conflicting_evidence",
+        "claim": "Raising the statutory minimum wage causes a direct and substantial increase in overall unemployment.",
+        "expected": "unverified",
+        "predicted": "contradicted",
+        "confidence": 0.9982,
+        "failure_mode": "Multi-Source Conflict Resolution Failure",
+        "root_cause": "One of the conflicting passages failed to exceed decision threshold (Entailment: 0.00, Contradiction: 1.00).",
+        "model_scores": {
+          "contradiction": 0.9982,
+          "entailment": 0.0,
+          "neutral": 0.0018
+        },
+        "evidence_used": "Empirical investigations comparing fast-food employment across state borders showed that an increase in the minimum wage did not reduce empl"
+      }
+    ]
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "supported_factual": {
+    "total": 5,
+    "correct_full": 4,
+    "correct_base": 4,
+    "predictions": [
+      {
+        "id": "rob-sup-01",
+        "expected": "supported",
+        "full_pred": "unverified",
+        "base_pred": "unverified"
+      },
+      {
+        "id": "rob-sup-02",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-sup-03",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-sup-04",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-sup-05",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      }
+    ],
+    "accuracy_full": 0.8,
+    "accuracy_base": 0.8
+  },
+  "contradicted_hallucination": {
+    "total": 5,
+    "correct_full": 5,
+    "correct_base": 5,
+    "predictions": [
+      {
+        "id": "rob-con-01",
+        "expected": "contradicted",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-con-02",
+        "expected": "contradicted",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-con-03",
+        "expected": "contradicted",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-con-04",
+        "expected": "contradicted",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-con-05",
+        "expected": "contradicted",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      }
+    ],
+    "accuracy_full": 1.0,
+    "accuracy_base": 1.0
+  },
+  "insufficient_evidence": {
+    "total": 5,
+    "correct_full": 3,
+    "correct_base": 3,
+    "predictions": [
+      {
+        "id": "rob-unv-01",
+        "expected": "unverified",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-unv-02",
+        "expected": "unverified",
+        "full_pred": "unverified",
+        "base_pred": "unverified"
+      },
+      {
+        "id": "rob-unv-03",
+        "expected": "unverified",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-unv-04",
+        "expected": "unverified",
+        "full_pred": "unverified",
+        "base_pred": "unverified"
+      },
+      {
+        "id": "rob-unv-05",
+        "expected": "unverified",
+        "full_pred": "unverified",
+        "base_pred": "unverified"
+      }
+    ],
+    "accuracy_full": 0.6,
+    "accuracy_base": 0.6
+  },
+  "paraphrased": {
+    "total": 5,
+    "correct_full": 4,
+    "correct_base": 2,
+    "predictions": [
+      {
+        "id": "rob-par-01",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-par-02",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "unverified"
+      },
+      {
+        "id": "rob-par-03",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "unverified"
+      },
+      {
+        "id": "rob-par-04",
+        "expected": "supported",
+        "full_pred": "unverified",
+        "base_pred": "unverified"
+      },
+      {
+        "id": "rob-par-05",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      }
+    ],
+    "accuracy_full": 0.8,
+    "accuracy_base": 0.4
+  },
+  "numerical_temporal": {
+    "total": 5,
+    "correct_full": 4,
+    "correct_base": 4,
+    "predictions": [
+      {
+        "id": "rob-num-01",
+        "expected": "supported",
+        "full_pred": "unverified",
+        "base_pred": "unverified"
+      },
+      {
+        "id": "rob-num-02",
+        "expected": "contradicted",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-num-03",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-num-04",
+        "expected": "contradicted",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-num-05",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      }
+    ],
+    "accuracy_full": 0.8,
+    "accuracy_base": 0.8
+  },
+  "noisy_ambiguous": {
+    "total": 5,
+    "correct_full": 5,
+    "correct_base": 5,
+    "predictions": [
+      {
+        "id": "rob-noi-01",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-noi-02",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-noi-03",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-noi-04",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-noi-05",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      }
+    ],
+    "accuracy_full": 1.0,
+    "accuracy_base": 1.0
+  },
+  "long_multiclaim": {
+    "total": 5,
+    "correct_full": 4,
+    "correct_base": 4,
+    "predictions": [
+      {
+        "id": "rob-lng-01",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-lng-02",
+        "expected": "contradicted",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-lng-03",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-lng-04",
+        "expected": "unverified",
+        "full_pred": "contradicted",
+        "base_pred": "contradicted"
+      },
+      {
+        "id": "rob-lng-05",
+        "expected": "supported",
+        "full_pred": "supported",
+        "base_pred": "supported"
+      }
+    ],
+    "accuracy_full": 0.8,
+    "accuracy_base": 0.8
+  },
+  "conflicting_evidence": {
+    "total": 5,
+    "correct_full": 3,
+    "correct_base": 0,
+    "predictions": [
+      {
+        "id": "rob-cnf-01",
+        "expected": "unverified",
+        "full_pred": "unverified",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-cnf-02",
+        "expected": "unverified",
+        "full_pred": "unverified",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-cnf-03",
+        "expected": "unverified",
+        "full_pred": "unverified",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-cnf-04",
+        "expected": "unverified",
+        "full_pred": "contradicted",
+        "base_pred": "supported"
+      },
+      {
+        "id": "rob-cnf-05",
+        "expected": "unverified",
+        "full_pred": "contradicted",
+        "base_pred": "supported"
+      }
+    ],
+    "accuracy_full": 0.6,
+    "accuracy_base": 0.0
+  }
+}

@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
 from app.config import settings
-from app.routes import health, claims, evidence, verification, metrics
+from app.routes import health, claims, evidence, verification, metrics, robustness
 
 # Setup logging
 logging.basicConfig(
@@ -87,6 +87,7 @@ app.include_router(claims.router)
 app.include_router(evidence.router)
 app.include_router(verification.router)
 app.include_router(metrics.router)
+app.include_router(robustness.router)
 
 
 @app.get("/")

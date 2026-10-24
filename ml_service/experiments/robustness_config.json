@@ -1,0 +1,19 @@
+{
+  "experiment_name": "TrustLens_Robustness_Evaluation_v1",
+  "timestamp": "2026-10-24T11:44:29.669451",
+  "nli_model": "cross-encoder/nli-deberta-v3-small",
+  "nli_label_mapping": {
+    "0": "contradiction",
+    "1": "entailment",
+    "2": "neutral"
+  },
+  "support_threshold": 0.65,
+  "contradiction_threshold": 0.65,
+  "embedding_model": "all-MiniLM-L6-v2 (ONNX)",
+  "vector_db": "ChromaDB (cosine space)",
+  "retrieval_top_k": 3,
+  "retrieval_similarity_threshold": 0.55,
+  "baseline_retriever": "Lexical Keyword Overlap (Jaccard token matching)",
+  "hardware": "CPU (Optimized Torch 4-thread execution)",
+  "random_seed": 42
+}

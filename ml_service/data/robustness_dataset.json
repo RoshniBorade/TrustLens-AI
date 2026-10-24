@@ -1,0 +1,917 @@
+[
+  {
+    "id": "rob-sup-01",
+    "category": "supported_factual",
+    "domain": "astronomy",
+    "query": "What is the center of the Solar System?",
+    "input_text": "The Sun is at the center of the Solar System, and all planets orbit around it.",
+    "claim_text": "The Sun is at the center of the Solar System, and all planets orbit around it.",
+    "reference_evidence": "The Solar System is the gravitationally bound system of the Sun and the objects that orbit it, with the Sun situated at the center.",
+    "sources": [
+      {
+        "title": "Wikipedia: Solar System",
+        "text": "The Solar System is the gravitationally bound system of the Sun and the objects that orbit it, with the Sun situated at the center.",
+        "url": "https://en.wikipedia.org/wiki/Solar_System"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "The Sun is at the center of the Solar System, and all planets orbit around it."
+    ],
+    "annotation_notes": "Standard factual entailment from canonical astronomy source.",
+    "split": "test"
+  },
+  {
+    "id": "rob-sup-02",
+    "category": "supported_factual",
+    "domain": "biology",
+    "query": "What is the powerhouse of the cell?",
+    "input_text": "Mitochondria generate most of the chemical energy needed to power the cell's biochemical reactions.",
+    "claim_text": "Mitochondria generate most of the chemical energy needed to power cellular reactions.",
+    "reference_evidence": "Mitochondria are membrane-bound cell organelles that generate most of the chemical energy needed to power the cell's biochemical reactions, stored in adenosine triphosphate (ATP).",
+    "sources": [
+      {
+        "title": "Wikipedia: Mitochondrion",
+        "text": "Mitochondria are membrane-bound cell organelles that generate most of the chemical energy needed to power the cell's biochemical reactions, stored in adenosine triphosphate (ATP).",
+        "url": "https://en.wikipedia.org/wiki/Mitochondrion"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Mitochondria generate most of the chemical energy needed to power cellular reactions."
+    ],
+    "annotation_notes": "Well-established biological fact with high entailment confidence.",
+    "split": "test"
+  },
+  {
+    "id": "rob-sup-03",
+    "category": "supported_factual",
+    "domain": "geography",
+    "query": "What is the longest river in the world?",
+    "input_text": "The Nile River is traditionally considered the longest river in the world, flowing through northeastern Africa.",
+    "claim_text": "The Nile River is traditionally considered the longest river in the world, flowing through northeastern Africa.",
+    "reference_evidence": "The Nile is a major north-flowing river in northeastern Africa and is traditionally recognized as the longest river in the world, measuring roughly 6,650 km.",
+    "sources": [
+      {
+        "title": "Wikipedia: Nile",
+        "text": "The Nile is a major north-flowing river in northeastern Africa and is traditionally recognized as the longest river in the world, measuring roughly 6,650 km.",
+        "url": "https://en.wikipedia.org/wiki/Nile"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "The Nile River is traditionally considered the longest river in the world, flowing through northeastern Africa."
+    ],
+    "annotation_notes": "Geography canonical fact with geographic and directional qualifier.",
+    "split": "test"
+  },
+  {
+    "id": "rob-sup-04",
+    "category": "supported_factual",
+    "domain": "computer_science",
+    "query": "Who developed the World Wide Web?",
+    "input_text": "Tim Berners-Lee invented the World Wide Web in 1989 while working at CERN.",
+    "claim_text": "Tim Berners-Lee invented the World Wide Web in 1989 while working at CERN.",
+    "reference_evidence": "English computer scientist Tim Berners-Lee invented the World Wide Web in 1989 while employed at the European physics laboratory CERN.",
+    "sources": [
+      {
+        "title": "Wikipedia: World Wide Web",
+        "text": "English computer scientist Tim Berners-Lee invented the World Wide Web in 1989 while employed at the European physics laboratory CERN.",
+        "url": "https://en.wikipedia.org/wiki/World_Wide_Web"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Tim Berners-Lee invented the World Wide Web in 1989 while working at CERN."
+    ],
+    "annotation_notes": "Historical computer science fact with person, year, and institution.",
+    "split": "test"
+  },
+  {
+    "id": "rob-sup-05",
+    "category": "supported_factual",
+    "domain": "physics",
+    "query": "What is absolute zero?",
+    "input_text": "Absolute zero is the lowest possible thermodynamic temperature, equal to zero kelvins or minus 273.15 degrees Celsius.",
+    "claim_text": "Absolute zero is the lowest possible thermodynamic temperature, equal to zero kelvins or minus 273.15 degrees Celsius.",
+    "reference_evidence": "Absolute zero is the lowest limit of the thermodynamic temperature scale, a state at which enthalpy and entropy of a cooled ideal gas reach minimums, defined as 0 K or -273.15 \u00b0C.",
+    "sources": [
+      {
+        "title": "Wikipedia: Absolute zero",
+        "text": "Absolute zero is the lowest limit of the thermodynamic temperature scale, a state at which enthalpy and entropy of a cooled ideal gas reach minimums, defined as 0 K or -273.15 \u00b0C.",
+        "url": "https://en.wikipedia.org/wiki/Absolute_zero"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Absolute zero is the lowest possible thermodynamic temperature, equal to zero kelvins or minus 273.15 degrees Celsius."
+    ],
+    "annotation_notes": "Physical definition supported by standard scientific literature.",
+    "split": "test"
+  },
+  {
+    "id": "rob-con-01",
+    "category": "contradicted_hallucination",
+    "domain": "astronomy",
+    "query": "What is Mars made of?",
+    "input_text": "Mars has vast liquid oceans covering ninety percent of its planetary surface.",
+    "claim_text": "Mars has vast liquid oceans covering ninety percent of its planetary surface.",
+    "reference_evidence": "Liquid water cannot exist on the surface of Mars due to low atmospheric pressure, and the planet is an arid desert with no open liquid oceans.",
+    "sources": [
+      {
+        "title": "Wikipedia: Mars",
+        "text": "Liquid water cannot exist on the surface of Mars due to low atmospheric pressure, and the planet is an arid desert with no open liquid oceans.",
+        "url": "https://en.wikipedia.org/wiki/Mars"
+      }
+    ],
+    "expected_label": "contradicted",
+    "expected_claims": [
+      "Mars has vast liquid oceans covering ninety percent of its planetary surface."
+    ],
+    "annotation_notes": "Blatant astronomical hallucination refuted by physical reality.",
+    "split": "test"
+  },
+  {
+    "id": "rob-con-02",
+    "category": "contradicted_hallucination",
+    "domain": "history",
+    "query": "When did the Titanic sink?",
+    "input_text": "The RMS Titanic completed its maiden voyage and docked safely in New York in 1912.",
+    "claim_text": "The RMS Titanic completed its maiden voyage and docked safely in New York in 1912.",
+    "reference_evidence": "The RMS Titanic sank in the North Atlantic Ocean on 15 April 1912 after striking an iceberg, never reaching its destination of New York City.",
+    "sources": [
+      {
+        "title": "Wikipedia: Titanic",
+        "text": "The RMS Titanic sank in the North Atlantic Ocean on 15 April 1912 after striking an iceberg, never reaching its destination of New York City.",
+        "url": "https://en.wikipedia.org/wiki/Titanic"
+      }
+    ],
+    "expected_label": "contradicted",
+    "expected_claims": [
+      "The RMS Titanic completed its maiden voyage and docked safely in New York in 1912."
+    ],
+    "annotation_notes": "Direct historical contradiction of a well-documented disaster.",
+    "split": "test"
+  },
+  {
+    "id": "rob-con-03",
+    "category": "contradicted_hallucination",
+    "domain": "biology",
+    "query": "Can birds breathe underwater?",
+    "input_text": "Birds have biological gills that permit underwater respiration like fish.",
+    "claim_text": "Birds have biological gills that permit underwater respiration like fish.",
+    "reference_evidence": "Birds are air-breathing vertebrates with lungs and specialized air sacs; they do not possess gills and cannot extract oxygen from water.",
+    "sources": [
+      {
+        "title": "Wikipedia: Bird anatomy",
+        "text": "Birds are air-breathing vertebrates with lungs and specialized air sacs; they do not possess gills and cannot extract oxygen from water.",
+        "url": "https://en.wikipedia.org/wiki/Bird_anatomy"
+      }
+    ],
+    "expected_label": "contradicted",
+    "expected_claims": [
+      "Birds have biological gills that permit underwater respiration like fish."
+    ],
+    "annotation_notes": "Anatomical hallucination contradicted by vertebrate physiology.",
+    "split": "test"
+  },
+  {
+    "id": "rob-con-04",
+    "category": "contradicted_hallucination",
+    "domain": "chemistry",
+    "query": "Is table salt made of iron and helium?",
+    "input_text": "Table salt is composed chemically of pure elemental iron bonded with helium.",
+    "claim_text": "Table salt is composed chemically of pure elemental iron bonded with helium.",
+    "reference_evidence": "Table salt is a mineral composed primarily of sodium chloride (NaCl), a chemical compound belonging to the larger class of salts.",
+    "sources": [
+      {
+        "title": "Wikipedia: Sodium chloride",
+        "text": "Table salt is a mineral composed primarily of sodium chloride (NaCl), a chemical compound belonging to the larger class of salts.",
+        "url": "https://en.wikipedia.org/wiki/Sodium_chloride"
+      }
+    ],
+    "expected_label": "contradicted",
+    "expected_claims": [
+      "Table salt is composed chemically of pure elemental iron bonded with helium."
+    ],
+    "annotation_notes": "Chemical fabrication refuted by fundamental composition of NaCl.",
+    "split": "test"
+  },
+  {
+    "id": "rob-con-05",
+    "category": "contradicted_hallucination",
+    "domain": "geography",
+    "query": "Where is the Eiffel Tower located?",
+    "input_text": "The Eiffel Tower is situated in central London along the River Thames.",
+    "claim_text": "The Eiffel Tower is situated in central London along the River Thames.",
+    "reference_evidence": "The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France, named after the engineer Gustave Eiffel.",
+    "sources": [
+      {
+        "title": "Wikipedia: Eiffel Tower",
+        "text": "The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France, named after the engineer Gustave Eiffel.",
+        "url": "https://en.wikipedia.org/wiki/Eiffel_Tower"
+      }
+    ],
+    "expected_label": "contradicted",
+    "expected_claims": [
+      "The Eiffel Tower is situated in central London along the River Thames."
+    ],
+    "annotation_notes": "Geographical translocation error directly refuted by evidence.",
+    "split": "test"
+  },
+  {
+    "id": "rob-unv-01",
+    "category": "insufficient_evidence",
+    "domain": "astrobiology",
+    "query": "Are there fossils on Titan?",
+    "input_text": "Fossilized microscopic fungi have been discovered beneath the methane dunes of Saturn's moon Titan.",
+    "claim_text": "Fossilized microscopic fungi have been discovered beneath the methane dunes of Saturn's moon Titan.",
+    "reference_evidence": "Saturn's moon Titan has prebiotic organic chemistry, but no space probe or scientific mission has ever detected fossils or biological organisms on Titan.",
+    "sources": [
+      {
+        "title": "Wikipedia: Life on Titan",
+        "text": "Saturn's moon Titan has prebiotic organic chemistry, but no space probe or scientific mission has ever detected fossils or biological organisms on Titan.",
+        "url": "https://en.wikipedia.org/wiki/Life_on_Titan"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "Fossilized microscopic fungi have been discovered beneath the methane dunes of Saturn's moon Titan."
+    ],
+    "annotation_notes": "Unverified assertion: science has neither confirmed fungi fossils nor definitively ruled out subterranean possibilities.",
+    "split": "test"
+  },
+  {
+    "id": "rob-unv-02",
+    "category": "insufficient_evidence",
+    "domain": "history",
+    "query": "What did Cleopatra whisper on her deathbed?",
+    "input_text": "Cleopatra's final dying words were a secret poem whispered to her servant Charmion praising Alexandria.",
+    "claim_text": "Cleopatra's final dying words were a secret poem whispered to her servant Charmion praising Alexandria.",
+    "reference_evidence": "Historical accounts of Cleopatra VII's final moments by Plutarch and Cassius Dio record minimal details, and no surviving records preserve her exact dying whispers or poems.",
+    "sources": [
+      {
+        "title": "Wikipedia: Death of Cleopatra",
+        "text": "Historical accounts of Cleopatra VII's final moments by Plutarch and Cassius Dio record minimal details, and no surviving records preserve her exact dying whispers or poems.",
+        "url": "https://en.wikipedia.org/wiki/Death_of_Cleopatra"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "Cleopatra's final dying words were a secret poem whispered to her servant Charmion praising Alexandria."
+    ],
+    "annotation_notes": "Historical hearsay with absent corroborating records; label must be unverified.",
+    "split": "test"
+  },
+  {
+    "id": "rob-unv-03",
+    "category": "insufficient_evidence",
+    "domain": "zoology",
+    "query": "Does the Loch Ness monster exist?",
+    "input_text": "A living plesiosaur family currently thrives in the depths of Loch Ness in Scotland.",
+    "claim_text": "A living plesiosaur family currently thrives in the depths of Loch Ness in Scotland.",
+    "reference_evidence": "The Loch Ness Monster is an unconfirmed cryptid whose sightings remain unproven by environmental DNA and sonar investigations, though folklore persists.",
+    "sources": [
+      {
+        "title": "Wikipedia: Loch Ness Monster",
+        "text": "The Loch Ness Monster is an unconfirmed cryptid whose sightings remain unproven by environmental DNA and sonar investigations, though folklore persists.",
+        "url": "https://en.wikipedia.org/wiki/Loch_Ness_Monster"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "A living plesiosaur family currently thrives in the depths of Loch Ness in Scotland."
+    ],
+    "annotation_notes": "Folklore with inconclusive physical evidence.",
+    "split": "test"
+  },
+  {
+    "id": "rob-unv-04",
+    "category": "insufficient_evidence",
+    "domain": "physics",
+    "query": "Is our universe inside a black hole?",
+    "input_text": "The observable universe is located inside the event horizon of a black hole in a parent 5-dimensional universe.",
+    "claim_text": "The observable universe is located inside the event horizon of a black hole in a parent 5-dimensional universe.",
+    "reference_evidence": "Cosmological black-hole universe hypotheses are speculative mathematical models that have neither empirical confirmation nor observational falsification.",
+    "sources": [
+      {
+        "title": "Wikipedia: Black hole cosmology",
+        "text": "Cosmological black-hole universe hypotheses are speculative mathematical models that have neither empirical confirmation nor observational falsification.",
+        "url": "https://en.wikipedia.org/wiki/Black_hole_cosmology"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "The observable universe is located inside the event horizon of a black hole in a parent 5-dimensional universe."
+    ],
+    "annotation_notes": "Theoretical conjecture with zero empirical observation.",
+    "split": "test"
+  },
+  {
+    "id": "rob-unv-05",
+    "category": "insufficient_evidence",
+    "domain": "archaeology",
+    "query": "Where is Genghis Khan buried?",
+    "input_text": "Genghis Khan was buried in an underground gold palace beneath the Burkhan Khaldun mountain.",
+    "claim_text": "Genghis Khan was buried in an underground gold palace beneath the Burkhan Khaldun mountain.",
+    "reference_evidence": "The location of Genghis Khan's tomb remains undiscovered despite extensive historical and archaeological search expeditions.",
+    "sources": [
+      {
+        "title": "Wikipedia: Tomb of Genghis Khan",
+        "text": "The location of Genghis Khan's tomb remains undiscovered despite extensive historical and archaeological search expeditions.",
+        "url": "https://en.wikipedia.org/wiki/Tomb_of_Genghis_Khan"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "Genghis Khan was buried in an underground gold palace beneath the Burkhan Khaldun mountain."
+    ],
+    "annotation_notes": "Unsubstantiated archaeological myth; absent evidence.",
+    "split": "test"
+  },
+  {
+    "id": "rob-par-01",
+    "category": "paraphrased",
+    "domain": "astronomy",
+    "query": "What is the red planet?",
+    "input_text": "Because iron oxide coats its surface, the fourth planet from the Sun exhibits a reddish appearance.",
+    "claim_text": "Because iron oxide coats its surface, the fourth planet from the Sun exhibits a reddish appearance.",
+    "reference_evidence": "Mars is the fourth planet from the Sun, often called the 'Red Planet' because the iron oxide prevalent on its surface imparts a reddish appearance.",
+    "sources": [
+      {
+        "title": "Wikipedia: Mars",
+        "text": "Mars is the fourth planet from the Sun, often called the 'Red Planet' because the iron oxide prevalent on its surface imparts a reddish appearance.",
+        "url": "https://en.wikipedia.org/wiki/Mars"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Because iron oxide coats its surface, the fourth planet from the Sun exhibits a reddish appearance."
+    ],
+    "annotation_notes": "Syntactic reordering and lexical paraphrase of standard Mars coloration fact.",
+    "split": "test"
+  },
+  {
+    "id": "rob-par-02",
+    "category": "paraphrased",
+    "domain": "literature",
+    "query": "Who wrote Romeo and Juliet?",
+    "input_text": "The tragic play Romeo and Juliet was penned by William Shakespeare early in his dramatic career.",
+    "claim_text": "The tragic play Romeo and Juliet was penned by William Shakespeare early in his dramatic career.",
+    "reference_evidence": "Romeo and Juliet is a tragedy written by William Shakespeare early in his career about two Italian star-crossed lovers whose deaths ultimately reconcile their feuding families.",
+    "sources": [
+      {
+        "title": "Wikipedia: Romeo and Juliet",
+        "text": "Romeo and Juliet is a tragedy written by William Shakespeare early in his career about two Italian star-crossed lovers whose deaths ultimately reconcile their feuding families.",
+        "url": "https://en.wikipedia.org/wiki/Romeo_and_Juliet"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "The tragic play Romeo and Juliet was penned by William Shakespeare early in his dramatic career."
+    ],
+    "annotation_notes": "Passive phrasing ('penned by') evaluating synonym robustness.",
+    "split": "test"
+  },
+  {
+    "id": "rob-par-03",
+    "category": "paraphrased",
+    "domain": "history",
+    "query": "Who was the first president of the United States?",
+    "input_text": "Serving from 1789 to 1797, George Washington led the American republic as its initial chief executive.",
+    "claim_text": "Serving from 1789 to 1797, George Washington led the American republic as its initial chief executive.",
+    "reference_evidence": "George Washington was an American military officer, statesman, and Founding Father who served as the first president of the United States from 1789 to 1797.",
+    "sources": [
+      {
+        "title": "Wikipedia: George Washington",
+        "text": "George Washington was an American military officer, statesman, and Founding Father who served as the first president of the United States from 1789 to 1797.",
+        "url": "https://en.wikipedia.org/wiki/George_Washington"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Serving from 1789 to 1797, George Washington led the American republic as its initial chief executive."
+    ],
+    "annotation_notes": "Participial phrase paraphrase ('initial chief executive' for first president).",
+    "split": "test"
+  },
+  {
+    "id": "rob-par-04",
+    "category": "paraphrased",
+    "domain": "geography",
+    "query": "Where is the Amazon rainforest?",
+    "input_text": "The Amazon biome spans extensively across the northern portion of the South American continent.",
+    "claim_text": "The Amazon biome spans extensively across the northern portion of the South American continent.",
+    "reference_evidence": "The Amazon rainforest is a moist broadleaf tropical rainforest in the Amazon biome that covers most of the Amazon basin of South America.",
+    "sources": [
+      {
+        "title": "Wikipedia: Amazon rainforest",
+        "text": "The Amazon rainforest is a moist broadleaf tropical rainforest in the Amazon biome that covers most of the Amazon basin of South America.",
+        "url": "https://en.wikipedia.org/wiki/Amazon_rainforest"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "The Amazon biome spans extensively across the northern portion of the South American continent."
+    ],
+    "annotation_notes": "Lexical abstraction ('biome spans extensively across').",
+    "split": "test"
+  },
+  {
+    "id": "rob-par-05",
+    "category": "paraphrased",
+    "domain": "physics",
+    "query": "Does gravity attract objects with mass?",
+    "input_text": "Any two bodies with physical mass exert a mutual gravitational pull upon each other.",
+    "claim_text": "Any two bodies with physical mass exert a mutual gravitational pull upon each other.",
+    "reference_evidence": "Gravity is a fundamental interaction which causes mutual attraction between all things with mass or energy.",
+    "sources": [
+      {
+        "title": "Wikipedia: Gravity",
+        "text": "Gravity is a fundamental interaction which causes mutual attraction between all things with mass or energy.",
+        "url": "https://en.wikipedia.org/wiki/Gravity"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Any two bodies with physical mass exert a mutual gravitational pull upon each other."
+    ],
+    "annotation_notes": "Paraphrase of Newton's law and general relativity principle.",
+    "split": "test"
+  },
+  {
+    "id": "rob-num-01",
+    "category": "numerical_temporal",
+    "domain": "history",
+    "query": "When did World War II end?",
+    "input_text": "World War II officially concluded in the year 1945 following the surrender of Axis powers.",
+    "claim_text": "World War II officially concluded in the year 1945 following the surrender of Axis powers.",
+    "reference_evidence": "World War II lasted from 1939 to 1945, officially ending on September 2, 1945, with the formal signing of surrender documents.",
+    "sources": [
+      {
+        "title": "Wikipedia: World War II",
+        "text": "World War II lasted from 1939 to 1945, officially ending on September 2, 1945, with the formal signing of surrender documents.",
+        "url": "https://en.wikipedia.org/wiki/World_War_II"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "World War II officially concluded in the year 1945 following the surrender of Axis powers."
+    ],
+    "annotation_notes": "Correct numerical year (1945).",
+    "split": "test"
+  },
+  {
+    "id": "rob-num-02",
+    "category": "numerical_temporal",
+    "domain": "history",
+    "query": "When did World War II end?",
+    "input_text": "World War II officially concluded in the year 1985 following the surrender of Axis powers.",
+    "claim_text": "World War II officially concluded in the year 1985 following the surrender of Axis powers.",
+    "reference_evidence": "World War II lasted from 1939 to 1945, ending in 1945, four decades before 1985.",
+    "sources": [
+      {
+        "title": "Wikipedia: World War II",
+        "text": "World War II lasted from 1939 to 1945, ending in 1945, four decades before 1985.",
+        "url": "https://en.wikipedia.org/wiki/World_War_II"
+      }
+    ],
+    "expected_label": "contradicted",
+    "expected_claims": [
+      "World War II officially concluded in the year 1985 following the surrender of Axis powers."
+    ],
+    "annotation_notes": "Temporal error: 1985 instead of 1945 (40-year discrepancy).",
+    "split": "test"
+  },
+  {
+    "id": "rob-num-03",
+    "category": "numerical_temporal",
+    "domain": "geography",
+    "query": "What is the elevation of Mount Everest?",
+    "input_text": "Mount Everest has an official peak elevation of 8,848.86 metres above sea level.",
+    "claim_text": "Mount Everest has an official peak elevation of 8,848.86 metres above sea level.",
+    "reference_evidence": "Mount Everest's elevation of 8,848.86 m (29,031.7 ft) was officially recognized jointly by the Nepali and Chinese authorities in 2020.",
+    "sources": [
+      {
+        "title": "Wikipedia: Mount Everest",
+        "text": "Mount Everest's elevation of 8,848.86 m (29,031.7 ft) was officially recognized jointly by the Nepali and Chinese authorities in 2020.",
+        "url": "https://en.wikipedia.org/wiki/Mount_Everest"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Mount Everest has an official peak elevation of 8,848.86 metres above sea level."
+    ],
+    "annotation_notes": "Exact elevation match (8,848.86 m).",
+    "split": "test"
+  },
+  {
+    "id": "rob-num-04",
+    "category": "numerical_temporal",
+    "domain": "geography",
+    "query": "What is the elevation of Mount Everest?",
+    "input_text": "Mount Everest reaches a height of 15,200 metres above sea level.",
+    "claim_text": "Mount Everest reaches a height of 15,200 metres above sea level.",
+    "reference_evidence": "Mount Everest is 8,848.86 metres high; no mountain on Earth reaches 15,000 metres above sea level.",
+    "sources": [
+      {
+        "title": "Wikipedia: Mount Everest",
+        "text": "Mount Everest is 8,848.86 metres high; no mountain on Earth reaches 15,000 metres above sea level.",
+        "url": "https://en.wikipedia.org/wiki/Mount_Everest"
+      }
+    ],
+    "expected_label": "contradicted",
+    "expected_claims": [
+      "Mount Everest reaches a height of 15,200 metres above sea level."
+    ],
+    "annotation_notes": "Gross numerical hallucination (15,200 m vs 8,848 m).",
+    "split": "test"
+  },
+  {
+    "id": "rob-num-05",
+    "category": "numerical_temporal",
+    "domain": "chemistry",
+    "query": "How many protons does Carbon have?",
+    "input_text": "An atom of Carbon contains exactly 6 protons in its atomic nucleus.",
+    "claim_text": "An atom of Carbon contains exactly 6 protons in its atomic nucleus.",
+    "reference_evidence": "Carbon is a chemical element with the symbol C and atomic number 6, meaning each carbon nucleus contains exactly six protons.",
+    "sources": [
+      {
+        "title": "Wikipedia: Carbon",
+        "text": "Carbon is a chemical element with the symbol C and atomic number 6, meaning each carbon nucleus contains exactly six protons.",
+        "url": "https://en.wikipedia.org/wiki/Carbon"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "An atom of Carbon contains exactly 6 protons in its atomic nucleus."
+    ],
+    "annotation_notes": "Atomic number exact match (6).",
+    "split": "test"
+  },
+  {
+    "id": "rob-noi-01",
+    "category": "noisy_ambiguous",
+    "domain": "general_knowledge",
+    "query": "Tell me about Tokyo.",
+    "input_text": "Well, hello there! In my humble opinion, Tokyo is definitely the vibrant capital city of Japan, you know?",
+    "claim_text": "Tokyo is the capital city of Japan.",
+    "reference_evidence": "Tokyo is the capital and most populous prefecture of Japan, situated at the head of Tokyo Bay.",
+    "sources": [
+      {
+        "title": "Wikipedia: Tokyo",
+        "text": "Tokyo is the capital and most populous prefecture of Japan, situated at the head of Tokyo Bay.",
+        "url": "https://en.wikipedia.org/wiki/Tokyo"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Tokyo is the capital city of Japan."
+    ],
+    "annotation_notes": "Extraction must filter out 'hello there', 'In my humble opinion', 'you know?' and keep the core factual assertion.",
+    "split": "test"
+  },
+  {
+    "id": "rob-noi-02",
+    "category": "noisy_ambiguous",
+    "domain": "science",
+    "query": "Is boiling water hot?",
+    "input_text": "As an AI assistant, I'd say that pure water at standard pressure boils at 100 degrees Celsius.",
+    "claim_text": "Pure water at standard pressure boils at 100 degrees Celsius.",
+    "reference_evidence": "At standard atmospheric pressure (1 atm, 101.3 kPa), the boiling point of pure water is precisely 100 \u00b0C (212 \u00b0F).",
+    "sources": [
+      {
+        "title": "Wikipedia: Water",
+        "text": "At standard atmospheric pressure (1 atm, 101.3 kPa), the boiling point of pure water is precisely 100 \u00b0C (212 \u00b0F).",
+        "url": "https://en.wikipedia.org/wiki/Water"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Pure water at standard pressure boils at 100 degrees Celsius."
+    ],
+    "annotation_notes": "Conversational disclaimer 'As an AI assistant, I'd say that' should be stripped.",
+    "split": "test"
+  },
+  {
+    "id": "rob-noi-03",
+    "category": "noisy_ambiguous",
+    "domain": "history",
+    "query": "Did Abraham Lincoln deliver the Gettysburg Address?",
+    "input_text": "Sure, I'd be glad to help! Abraham Lincoln delivered the historic Gettysburg Address during the American Civil War.",
+    "claim_text": "Abraham Lincoln delivered the historic Gettysburg Address during the American Civil War.",
+    "reference_evidence": "The Gettysburg Address is a speech that U.S. President Abraham Lincoln delivered during the American Civil War on November 19, 1863.",
+    "sources": [
+      {
+        "title": "Wikipedia: Gettysburg Address",
+        "text": "The Gettysburg Address is a speech that U.S. President Abraham Lincoln delivered during the American Civil War on November 19, 1863.",
+        "url": "https://en.wikipedia.org/wiki/Gettysburg_Address"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Abraham Lincoln delivered the historic Gettysburg Address during the American Civil War."
+    ],
+    "annotation_notes": "Extraction strips pleasantry 'Sure, I'd be glad to help!'.",
+    "split": "test"
+  },
+  {
+    "id": "rob-noi-04",
+    "category": "noisy_ambiguous",
+    "domain": "astronomy",
+    "query": "Is Venus hotter than Mercury?",
+    "input_text": "Some folks believe Venus has the hottest surface of any planet in our solar system, and that is actually true.",
+    "claim_text": "Venus has the hottest surface of any planet in our solar system.",
+    "reference_evidence": "Venus has an extremely dense atmosphere consisting mainly of carbon dioxide, generating a runaway greenhouse effect that makes its surface the hottest of any planet in the Solar System.",
+    "sources": [
+      {
+        "title": "Wikipedia: Venus",
+        "text": "Venus has an extremely dense atmosphere consisting mainly of carbon dioxide, generating a runaway greenhouse effect that makes its surface the hottest of any planet in the Solar System.",
+        "url": "https://en.wikipedia.org/wiki/Venus"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Venus has the hottest surface of any planet in our solar system."
+    ],
+    "annotation_notes": "Decomposition isolates proposition from conversational framing.",
+    "split": "test"
+  },
+  {
+    "id": "rob-noi-05",
+    "category": "noisy_ambiguous",
+    "domain": "computer_science",
+    "query": "What is Linux?",
+    "input_text": "I hope this helps! Linux was originally created by Linus Torvalds back in 1991. Let me know if you need anything else!",
+    "claim_text": "Linux was originally created by Linus Torvalds back in 1991.",
+    "reference_evidence": "Linux was conceived and created in 1991 by Finnish student Linus Torvalds as a free operating system kernel.",
+    "sources": [
+      {
+        "title": "Wikipedia: Linux",
+        "text": "Linux was conceived and created in 1991 by Finnish student Linus Torvalds as a free operating system kernel.",
+        "url": "https://en.wikipedia.org/wiki/Linux"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Linux was originally created by Linus Torvalds back in 1991."
+    ],
+    "annotation_notes": "Strips both leading pleasantry ('I hope this helps!') and closing boilerplate ('Let me know...').",
+    "split": "test"
+  },
+  {
+    "id": "rob-lng-01",
+    "category": "long_multiclaim",
+    "domain": "geography",
+    "query": "Tell me about France, Italy, and Mars.",
+    "input_text": "Paris is the capital of France. Rome is the capital of Italy. Meanwhile, Mars has oceans of molten gold.",
+    "claim_text": "Rome is the capital of Italy.",
+    "reference_evidence": "Rome is the capital city of Italy and the special comune of Roma Capitale.",
+    "sources": [
+      {
+        "title": "Wikipedia: Rome",
+        "text": "Rome is the capital city of Italy and the special comune of Roma Capitale.",
+        "url": "https://en.wikipedia.org/wiki/Rome"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Paris is the capital of France.",
+      "Rome is the capital of Italy.",
+      "Mars has oceans of molten gold."
+    ],
+    "annotation_notes": "Multi-claim paragraph containing 2 true claims and 1 hallucinated claim.",
+    "split": "test"
+  },
+  {
+    "id": "rob-lng-02",
+    "category": "long_multiclaim",
+    "domain": "astronomy",
+    "query": "Tell me about Mars and Jupiter.",
+    "input_text": "Jupiter is the largest planet in our solar system. Mars has oceans of molten gold across its surface. The Moon orbits the Earth.",
+    "claim_text": "Mars has oceans of molten gold across its surface.",
+    "reference_evidence": "Mars is a terrestrial rocky planet with a dry, dusty basaltic crust and no oceans of molten gold or liquid metals.",
+    "sources": [
+      {
+        "title": "Wikipedia: Geology of Mars",
+        "text": "Mars is a terrestrial rocky planet with a dry, dusty basaltic crust and no oceans of molten gold or liquid metals.",
+        "url": "https://en.wikipedia.org/wiki/Geology_of_Mars"
+      }
+    ],
+    "expected_label": "contradicted",
+    "expected_claims": [
+      "Jupiter is the largest planet in our solar system.",
+      "Mars has oceans of molten gold across its surface.",
+      "The Moon orbits the Earth."
+    ],
+    "annotation_notes": "Multi-claim passage with target claim being a contradicted hallucination.",
+    "split": "test"
+  },
+  {
+    "id": "rob-lng-03",
+    "category": "long_multiclaim",
+    "domain": "science",
+    "query": "Explain water and sound.",
+    "input_text": "Water consists of hydrogen and oxygen molecules. Sound travels faster through water than through air. Fish communicate using telepathic quantum brainwaves.",
+    "claim_text": "Sound travels faster through water than through air.",
+    "reference_evidence": "Sound propagates at approximately 1,480 meters per second in water, compared to roughly 343 meters per second in air at 20 \u00b0C.",
+    "sources": [
+      {
+        "title": "Wikipedia: Speed of sound",
+        "text": "Sound propagates at approximately 1,480 meters per second in water, compared to roughly 343 meters per second in air at 20 \u00b0C.",
+        "url": "https://en.wikipedia.org/wiki/Speed_of_sound"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Water consists of hydrogen and oxygen molecules.",
+      "Sound travels faster through water than through air.",
+      "Fish communicate using telepathic quantum brainwaves."
+    ],
+    "annotation_notes": "Multi-claim response testing extraction of 3 discrete claims, target claim supported.",
+    "split": "test"
+  },
+  {
+    "id": "rob-lng-04",
+    "category": "long_multiclaim",
+    "domain": "science",
+    "query": "Explain fish communication in deep oceans.",
+    "input_text": "Water consists of hydrogen and oxygen molecules. Sound travels faster through water than through air. Fish communicate using telepathic quantum brainwaves.",
+    "claim_text": "Fish communicate using telepathic quantum brainwaves.",
+    "reference_evidence": "Fish communicate using acoustic signals, bioluminescence, movement displays, and chemical pheromones; telepathic quantum communication is unsupported by biological science.",
+    "sources": [
+      {
+        "title": "Wikipedia: Fish communication",
+        "text": "Fish communicate using acoustic signals, bioluminescence, movement displays, and chemical pheromones; telepathic quantum communication is unsupported by biological science.",
+        "url": "https://en.wikipedia.org/wiki/Fish"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "Water consists of hydrogen and oxygen molecules.",
+      "Sound travels faster through water than through air.",
+      "Fish communicate using telepathic quantum brainwaves."
+    ],
+    "annotation_notes": "Target claim is unverified / unsupported speculation in multi-claim paragraph.",
+    "split": "test"
+  },
+  {
+    "id": "rob-lng-05",
+    "category": "long_multiclaim",
+    "domain": "history",
+    "query": "Who were the leaders of the allied nations?",
+    "input_text": "Winston Churchill served as the Prime Minister of the United Kingdom during World War II. Franklin D. Roosevelt served as the President of the United States. Joseph Stalin was the leader of the Soviet Union.",
+    "claim_text": "Franklin D. Roosevelt served as the President of the United States.",
+    "reference_evidence": "Franklin D. Roosevelt was the 32nd president of the United States, serving from 1933 until his death in 1945.",
+    "sources": [
+      {
+        "title": "Wikipedia: Franklin D. Roosevelt",
+        "text": "Franklin D. Roosevelt was the 32nd president of the United States, serving from 1933 until his death in 1945.",
+        "url": "https://en.wikipedia.org/wiki/Franklin_D._Roosevelt"
+      }
+    ],
+    "expected_label": "supported",
+    "expected_claims": [
+      "Winston Churchill served as the Prime Minister of the United Kingdom during World War II.",
+      "Franklin D. Roosevelt served as the President of the United States.",
+      "Joseph Stalin was the leader of the Soviet Union."
+    ],
+    "annotation_notes": "Three distinct biographical claims extracted from sequential sentences.",
+    "split": "test"
+  },
+  {
+    "id": "rob-cnf-01",
+    "category": "conflicting_evidence",
+    "domain": "history",
+    "query": "Was coffee originally discovered in Ethiopia or Yemen?",
+    "input_text": "Coffee was first discovered and consumed as a beverage in the highlands of Ethiopia.",
+    "claim_text": "Coffee was first discovered and consumed as a beverage in the highlands of Ethiopia.",
+    "reference_evidence": "Historical accounts differ: Ethiopian heritage traditions trace coffee consumption to Kaldi in Ethiopia, whereas documented historical evidence first records coffee drinking in Sufi shrines of Yemen.",
+    "sources": [
+      {
+        "title": "Historical Tradition: Ethiopian Origin",
+        "text": "The earliest heritage accounts maintain that coffee was discovered in the Kaffa province of Ethiopia, where coffee plants grew natively and were consumed by locals.",
+        "url": "https://en.wikipedia.org/wiki/History_of_coffee"
+      },
+      {
+        "title": "Documented Records: Yemeni Monasteries",
+        "text": "The earliest credible evidence of coffee-drinking appears in the middle of the 15th century in the Sufi shrines of Yemen, contradicting assertions of earlier beverage preparation in Ethiopia.",
+        "url": "https://en.wikipedia.org/wiki/History_of_coffee"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "Coffee was first discovered and consumed as a beverage in the highlands of Ethiopia."
+    ],
+    "annotation_notes": "Conflicting evidence from multiple sources entails conflicting verdicts; system must classify as unverified with conflict explanation.",
+    "split": "test"
+  },
+  {
+    "id": "rob-cnf-02",
+    "category": "conflicting_evidence",
+    "domain": "geography",
+    "query": "Is Mount Everest growing taller or shrinking?",
+    "input_text": "Mount Everest is steadily increasing in height due to tectonic plate collisions.",
+    "claim_text": "Mount Everest is steadily increasing in height due to tectonic plate collisions.",
+    "reference_evidence": "Tectonic uplift pushes Everest upwards by approximately 4 mm per year, but seismic earthquakes and weathering erosion periodically reduce its elevation.",
+    "sources": [
+      {
+        "title": "Geological Survey A: Tectonic Uplift",
+        "text": "The Indian tectonic plate continues to slide beneath the Eurasian plate, pushing Mount Everest upwards at a measured rate of roughly 4 mm per year.",
+        "url": "https://en.wikipedia.org/wiki/Mount_Everest"
+      },
+      {
+        "title": "Geological Survey B: Seismic Subsidence",
+        "text": "Satellite data after major Himalayan earthquakes demonstrated that Mount Everest experienced tectonic subsidence and height loss of up to several centimeters, negating steady uplift.",
+        "url": "https://en.wikipedia.org/wiki/Mount_Everest"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "Mount Everest is steadily increasing in height due to tectonic plate collisions."
+    ],
+    "annotation_notes": "Opposing scientific studies yield conflicting entailment and contradiction; resolved as unverified.",
+    "split": "test"
+  },
+  {
+    "id": "rob-cnf-03",
+    "category": "conflicting_evidence",
+    "domain": "nutrition",
+    "query": "Does drinking coffee prolong human lifespan?",
+    "input_text": "Regular daily coffee consumption significantly reduces all-cause mortality in humans.",
+    "claim_text": "Regular daily coffee consumption significantly reduces all-cause mortality in humans.",
+    "reference_evidence": "Large observational cohorts correlate coffee intake with decreased mortality, whereas other clinical genetic studies find confounding lifestyle factors and potential cardiovascular risks.",
+    "sources": [
+      {
+        "title": "Epidemiological Cohort Study",
+        "text": "A multi-decade cohort study of 500,000 individuals concluded that drinking coffee is inversely associated with mortality, reducing all-cause death risk by 12 percent.",
+        "url": "https://example.org/study1"
+      },
+      {
+        "title": "Mendelian Randomization Review",
+        "text": "Mendelian randomization analyses found no causal relationship between genetically predicted coffee consumption and reduced all-cause mortality, refuting observational claims.",
+        "url": "https://example.org/study2"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "Regular daily coffee consumption significantly reduces all-cause mortality in humans."
+    ],
+    "annotation_notes": "Contradictory epidemiological vs causal methodologies yielding opposing conclusions.",
+    "split": "test"
+  },
+  {
+    "id": "rob-cnf-04",
+    "category": "conflicting_evidence",
+    "domain": "history",
+    "query": "Did Richard III order the murder of the Princes in the Tower?",
+    "input_text": "King Richard III of England directly ordered the execution of the two Princes in the Tower.",
+    "claim_text": "King Richard III of England directly ordered the execution of the two Princes in the Tower.",
+    "reference_evidence": "Tudor historians maintained Richard III murdered the young princes, while modern revisionist historians argue there is no surviving proof of his culpability or their manner of death.",
+    "sources": [
+      {
+        "title": "Tudor Historical Chronicle",
+        "text": "Contemporary chroniclers like Thomas More recorded that King Richard III ordered Sir James Tyrrell to murder the young princes in the Tower of London to secure his throne.",
+        "url": "https://en.wikipedia.org/wiki/Princes_in_the_Tower"
+      },
+      {
+        "title": "Richard III Society Defense",
+        "text": "Modern archival research reveals no direct contemporary evidence connecting Richard III to the disappearance of the princes, and records indicate Tudor propaganda fabricated the murder charge.",
+        "url": "https://en.wikipedia.org/wiki/Princes_in_the_Tower"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "King Richard III of England directly ordered the execution of the two Princes in the Tower."
+    ],
+    "annotation_notes": "Classic historical dispute with conflicting primary and secondary accounts.",
+    "split": "test"
+  },
+  {
+    "id": "rob-cnf-05",
+    "category": "conflicting_evidence",
+    "domain": "economics",
+    "query": "Does raising minimum wage increase unemployment?",
+    "input_text": "Raising the statutory minimum wage causes a direct and substantial increase in overall unemployment.",
+    "claim_text": "Raising the statutory minimum wage causes a direct and substantial increase in overall unemployment.",
+    "reference_evidence": "Neoclassical economic models predict job losses from wage floors, whereas empirical studies such as Card and Krueger found no reduction in employment.",
+    "sources": [
+      {
+        "title": "Neoclassical Labor Model",
+        "text": "Standard economic theory demonstrates that imposing an artificial wage floor above equilibrium price directly reduces labor demand, causing substantial unemployment among low-skilled workers.",
+        "url": "https://example.org/neoclassical"
+      },
+      {
+        "title": "Empirical Minimum Wage Study",
+        "text": "Empirical investigations comparing fast-food employment across state borders showed that an increase in the minimum wage did not reduce employment and in some sectors increased retention.",
+        "url": "https://example.org/card-krueger"
+      }
+    ],
+    "expected_label": "unverified",
+    "expected_claims": [
+      "Raising the statutory minimum wage causes a direct and substantial increase in overall unemployment."
+    ],
+    "annotation_notes": "Theoretical vs empirical conflict; correctly triggers unverified status under conflict detection.",
+    "split": "test"
+  }
+]
