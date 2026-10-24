@@ -34,8 +34,15 @@ class ReliabilityMetrics(BaseModel):
     supported_claims: int
     contradicted_claims: int
     unverified_claims: int
+    supported_proportion: float = Field(0.0, ge=0.0, le=1.0, description="Proportion of claims supported")
+    contradicted_proportion: float = Field(0.0, ge=0.0, le=1.0, description="Proportion of claims contradicted")
+    unverified_proportion: float = Field(0.0, ge=0.0, le=1.0, description="Proportion of claims unverified")
     reliability_index: float = Field(..., ge=0.0, le=100.0, description="Composite reliability score out of 100")
-    hallucination_rate: float = Field(..., ge=0.0, le=1.0, description="Ratio of contradicted claims over verified claims")
+    hallucination_rate: float = Field(..., ge=0.0, le=1.0, description="Proportion of contradicted claims over total")
+    unverified_rate: float = Field(0.0, ge=0.0, le=1.0, description="Proportion of unverified claims over total")
+    strict_accuracy: float = Field(0.0, ge=0.0, le=100.0, description="Strict proportion of supported claims out of 100")
+    formula_definition: Optional[Dict[str, str]] = Field(default=None, description="Explicit mathematical definitions")
+    limitations_disclaimer: Optional[str] = Field(default=None, description="Academic limitations statement")
 
 
 class EvaluationRequest(BaseModel):

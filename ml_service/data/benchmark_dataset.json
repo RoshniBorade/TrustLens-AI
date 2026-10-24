@@ -1,0 +1,272 @@
+[
+  {
+    "id": "bench-sup-01",
+    "domain": "geography",
+    "query": "What is the capital of France?",
+    "claim_text": "Paris is the capital of France.",
+    "evidence_text": "Paris is the capital and largest city of France, with an estimated city population of 2.04 million.",
+    "source_title": "Wikipedia: Paris",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-02",
+    "domain": "chemistry",
+    "query": "What is the chemical formula of water?",
+    "claim_text": "The chemical formula of water is H2O.",
+    "evidence_text": "Water is a chemical compound with the chemical formula H2O, meaning each of its molecules contains one oxygen and two hydrogen atoms.",
+    "source_title": "Wikipedia: Water",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-03",
+    "domain": "astronomy",
+    "query": "What is the largest planet in our solar system?",
+    "claim_text": "Jupiter is the largest planet in the Solar System.",
+    "evidence_text": "Jupiter is the fifth planet from the Sun and the largest in the Solar System, a gas giant with a mass more than two and a half times that of all the other planets combined.",
+    "source_title": "Wikipedia: Jupiter",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-04",
+    "domain": "physics",
+    "query": "What is the speed of light in vacuum?",
+    "claim_text": "The speed of light in vacuum is approximately 299,792 kilometres per second.",
+    "evidence_text": "The speed of light in vacuum, commonly denoted c, is a universal physical constant exactly equal to 299,792,458 metres per second.",
+    "source_title": "Wikipedia: Speed of light",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-05",
+    "domain": "biology",
+    "query": "Who discovered the double helix structure of DNA?",
+    "claim_text": "James Watson and Francis Crick discovered the double helix structure of DNA.",
+    "evidence_text": "The discovery of the double helix of DNA in 1953 by James Watson and Francis Crick marked a milestone in molecular biology.",
+    "source_title": "Wikipedia: Molecular structure of Nucleic Acids",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-06",
+    "domain": "geography",
+    "query": "What is the highest mountain on Earth?",
+    "claim_text": "Mount Everest is Earth's highest mountain above sea level.",
+    "evidence_text": "Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas.",
+    "source_title": "Wikipedia: Mount Everest",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-07",
+    "domain": "history",
+    "query": "Who was the first person to walk on the Moon?",
+    "claim_text": "Neil Armstrong was the first person to walk on the Moon in 1969.",
+    "evidence_text": "American astronaut Neil Armstrong became the first person to step onto the lunar surface on July 21, 1969, during Apollo 11.",
+    "source_title": "Wikipedia: Neil Armstrong",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-08",
+    "domain": "biology",
+    "query": "Do plants produce oxygen during photosynthesis?",
+    "claim_text": "Photosynthesis releases oxygen as a byproduct.",
+    "evidence_text": "Oxygenic photosynthesis uses light energy to convert carbon dioxide and water into glucose and releases oxygen as a waste product.",
+    "source_title": "Wikipedia: Photosynthesis",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-09",
+    "domain": "computer_science",
+    "query": "Who created Python?",
+    "claim_text": "Python was created by Guido van Rossum.",
+    "evidence_text": "Python was conceived in the late 1980s by Guido van Rossum at Centrum Wiskunde & Informatica (CWI) in the Netherlands.",
+    "source_title": "Wikipedia: History of Python",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-sup-10",
+    "domain": "geography",
+    "query": "Is Australia both a continent and a country?",
+    "claim_text": "Australia is both a continent and a sovereign country.",
+    "evidence_text": "Australia, officially the Commonwealth of Australia, is a sovereign country comprising the mainland of the Australian continent.",
+    "source_title": "Wikipedia: Australia",
+    "ground_truth": "supported"
+  },
+  {
+    "id": "bench-con-01",
+    "domain": "astronomy",
+    "query": "What is the Moon composed of?",
+    "claim_text": "The Moon is composed entirely of solid green cheddar cheese.",
+    "evidence_text": "The Moon is an astronomical body formed of silicate rock and iron-rich basalt, with no dairy components whatsoever.",
+    "source_title": "Wikipedia: Geology of the Moon",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-02",
+    "domain": "astronomy",
+    "query": "Does the Sun revolve around the Earth?",
+    "claim_text": "The Sun revolves around the Earth in a geocentric orbit.",
+    "evidence_text": "Heliocentrism is the astronomical model in which the Earth and planets revolve around the Sun at the center of the Solar System.",
+    "source_title": "Wikipedia: Heliocentrism",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-03",
+    "domain": "biography",
+    "query": "Did Albert Einstein fail mathematics in school?",
+    "claim_text": "Albert Einstein repeatedly failed elementary mathematics as a schoolchild.",
+    "evidence_text": "Albert Einstein excelled at mathematics and physics from a young age, mastering calculus before the age of fifteen.",
+    "source_title": "Wikipedia: Albert Einstein",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-04",
+    "domain": "neuroscience",
+    "query": "What percentage of the human brain is used?",
+    "claim_text": "Humans only use 10 percent of their brain capacity.",
+    "evidence_text": "Neuroimaging studies show that virtually all parts of the brain are active throughout the day, disproving the ten-percent brain myth.",
+    "source_title": "Wikipedia: Ten percent of the brain myth",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-05",
+    "domain": "geography",
+    "query": "Is the Great Wall visible from the Moon?",
+    "claim_text": "The Great Wall of China is clearly visible from the Moon with the naked human eye.",
+    "evidence_text": "The Great Wall is barely visible from low Earth orbit with aid, and is completely invisible from the Moon to the unaided human eye.",
+    "source_title": "Wikipedia: Great Wall of China",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-06",
+    "domain": "history",
+    "query": "How tall was Napoleon Bonaparte?",
+    "claim_text": "Napoleon Bonaparte was extremely short at four feet two inches tall.",
+    "evidence_text": "Napoleon Bonaparte stood at approximately 5 feet 7 inches (168 cm) in modern French units, which was average or slightly above average height for men of his era.",
+    "source_title": "Wikipedia: Napoleon",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-07",
+    "domain": "biology",
+    "query": "What is the memory span of a goldfish?",
+    "claim_text": "Goldfish have an instantaneous memory span that lasts only three seconds.",
+    "evidence_text": "Scientific research demonstrates that goldfish have learning capacity and memory spans lasting for months, refuting the three-second memory myth.",
+    "source_title": "Wikipedia: Goldfish",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-08",
+    "domain": "geography",
+    "query": "Where is Mount Everest located?",
+    "claim_text": "Mount Everest is situated in the Rocky Mountains of North America.",
+    "evidence_text": "Mount Everest is located in the Himalayas on the border between Nepal and the Tibet Autonomous Region of China.",
+    "source_title": "Wikipedia: Mount Everest",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-09",
+    "domain": "zoology",
+    "query": "Are sharks mammals?",
+    "claim_text": "Sharks are aquatic mammals that nurse their young with milk.",
+    "evidence_text": "Sharks are a group of elasmobranch fish characterized by a cartilaginous skeleton, five to seven gill slits, and are not mammals.",
+    "source_title": "Wikipedia: Shark",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-con-10",
+    "domain": "technology",
+    "query": "When did Alexander Graham Bell patent the telephone?",
+    "claim_text": "Alexander Graham Bell was granted the telephone patent in 1995.",
+    "evidence_text": "Alexander Graham Bell was awarded the United States patent for the acoustic telephone on March 7, 1876.",
+    "source_title": "Wikipedia: Invention of the telephone",
+    "ground_truth": "contradicted"
+  },
+  {
+    "id": "bench-unv-01",
+    "domain": "astrobiology",
+    "query": "Is there life on Europa?",
+    "claim_text": "Microbial life forms currently live in the subsurface ocean of Jupiter's moon Europa.",
+    "evidence_text": "While scientists consider Europa one of the most promising candidates for extraterrestrial habitability, no conclusive evidence of microbial life has been detected.",
+    "source_title": "Wikipedia: Europa (moon)",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-02",
+    "domain": "mythology",
+    "query": "Where was Atlantis located?",
+    "claim_text": "The ancient lost city of Atlantis was located precisely in the Bermuda Triangle.",
+    "evidence_text": "Atlantis is a fictional island mentioned in Plato's dialogues, with no archaeological evidence supporting any physical location.",
+    "source_title": "Wikipedia: Atlantis",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-03",
+    "domain": "astronomy",
+    "query": "Is there intelligent life in the Andromeda galaxy?",
+    "claim_text": "Multiple technological civilizations currently thrive in the Andromeda Galaxy.",
+    "evidence_text": "The Andromeda Galaxy is 2.5 million light-years away, and humanity has detected no technosignatures or verifiable signs of intelligent life.",
+    "source_title": "Wikipedia: Andromeda Galaxy",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-04",
+    "domain": "literature",
+    "query": "What illness did Shakespeare have while writing Hamlet?",
+    "claim_text": "William Shakespeare wrote the entire draft of Hamlet while bedridden with gout.",
+    "evidence_text": "Few historical records describe Shakespeare's medical condition or precise physical state during the composition of Hamlet around 1599 to 1601.",
+    "source_title": "Wikipedia: Shakespeare's life",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-05",
+    "domain": "astronomy",
+    "query": "Does an undiscovered planet exist in the Oort cloud?",
+    "claim_text": "A terrestrial planet three times the mass of Earth orbits silently within the Oort cloud.",
+    "evidence_text": "Hypotheses regarding undetected planetary bodies in the outer solar system remain speculative without direct telescope observation.",
+    "source_title": "Wikipedia: Hypothetical planet",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-06",
+    "domain": "folklore",
+    "query": "Did King Arthur's sword grant immortality?",
+    "claim_text": "King Arthur owned a sword scabbard that magically prevented the wearer from losing blood.",
+    "evidence_text": "King Arthur is a folkloric and legendary figure whose mythical attributes derive from medieval romance and chivalric literature.",
+    "source_title": "Wikipedia: Excalibur",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-07",
+    "domain": "theoretical_physics",
+    "query": "Do tachyons exist?",
+    "claim_text": "Sub-atomic tachyons regularly travel backward through time in quantum laboratories.",
+    "evidence_text": "Tachyons are purely hypothetical faster-than-light particles; no experimental observation has ever confirmed their physical existence.",
+    "source_title": "Wikipedia: Tachyon",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-08",
+    "domain": "history",
+    "query": "Did Leonardo da Vinci plan a secret voyage to America?",
+    "claim_text": "Leonardo da Vinci secretly drafted blueprints to sail across the Atlantic Ocean in 1490.",
+    "evidence_text": "Da Vinci's surviving notebooks contain numerous mechanical designs, but lack validated evidence of plans to voyage across the Atlantic in 1490.",
+    "source_title": "Wikipedia: Leonardo da Vinci",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-09",
+    "domain": "archaeology",
+    "query": "Is there a secret chamber under the Sphinx?",
+    "claim_text": "An ancient underground library known as the Hall of Records lies beneath the Great Sphinx of Giza.",
+    "evidence_text": "Geological and radar surveys have revealed natural cavities around the Sphinx, but mainstream archaeologists find no evidence of an intentional buried library.",
+    "source_title": "Wikipedia: Great Sphinx of Giza",
+    "ground_truth": "unverified"
+  },
+  {
+    "id": "bench-unv-10",
+    "domain": "theoretical_physics",
+    "query": "Do parallel universes exchange matter?",
+    "claim_text": "Parallel universes routinely leak subatomic dark matter into our universe through quantum tunnels.",
+    "evidence_text": "Multiverse concepts are theoretical constructs in cosmology and quantum mechanics that currently cannot be empirically tested or falsified.",
+    "source_title": "Wikipedia: Multiverse",
+    "ground_truth": "unverified"
+  }
+]

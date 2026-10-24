@@ -106,8 +106,18 @@ TrustLens-AI/
     "supported_claims": 2,
     "contradicted_claims": 0,
     "unverified_claims": 0,
+    "supported_proportion": 1.0,
+    "contradicted_proportion": 0.0,
+    "unverified_proportion": 0.0,
     "reliability_index": 100.0,
-    "hallucination_rate": 0.0
+    "hallucination_rate": 0.0,
+    "unverified_rate": 0.0,
+    "strict_accuracy": 100.0,
+    "formula_definition": {
+      "reliability_index": "N_supported / (N_supported + N_contradicted + 0.5 * N_unverified) * 100",
+      "hallucination_rate": "N_contradicted / N_total"
+    },
+    "limitations_disclaimer": "The Reliability Index is an empirical grounding metric, not a calibrated Bayesian probability of absolute truth."
   }
 }
 ```
@@ -181,7 +191,26 @@ npm run dev
 
 ---
 
-## 5. Academic Principles
+## 5. Reliability Scoring & System Evaluation Methodology
+
+TrustLens AI defines two distinct evaluation scopes:
+1. **Per-Response Reliability Summary**:
+   - Decomposes responses into atomic claims and calculates category proportions:
+     $$p_s = \frac{N_s}{N_{\text{total}}}, \quad p_c = \frac{N_c}{N_{\text{total}}}, \quad p_u = \frac{N_u}{N_{\text{total}}}$$
+   - Computes the **Reliability Index**:
+     $$\text{Reliability Index} = \frac{N_s}{N_s + N_c + 0.5 \times N_u} \times 100$$
+   - Displays the unverified proportion ($p_u$) separately to prevent treating unverified statements as proven falsehoods.
+   - Transparently caveats that the score measures empirical evidence corroboration rather than a calibrated Bayesian truth probability.
+
+2. **System-Performance Benchmark Evaluation**:
+   - Measures multi-class model accuracy on a 30-sample curated test dataset (`ml_service/data/benchmark_dataset.json`).
+   - Reports $3 \times 3$ **Confusion Matrix**, per-class Precision/Recall/F1, and Macro/Weighted averages.
+   - Formally defines the positive class for **Binary Hallucination Detection** as `contradicted`.
+   - Comprehensive methodology details: see [docs/METRICS_METHODOLOGY.md](docs/METRICS_METHODOLOGY.md).
+
+---
+
+## 6. Academic Principles
 * **Evidence Grounding:** Claims are classified based on retrieved source premises, never purely on an LLM's opinion.
 * **Neutrality Principle:** Missing evidence maps strictly to **`Unverified`**, never to false **`Contradicted`**.
 * **Formulaic Transparency:** Reliability metrics are mathematically defined and traceable per claim.

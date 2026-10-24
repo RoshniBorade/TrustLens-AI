@@ -21,6 +21,7 @@ from app.services.claim_extractor import claim_extractor
 from app.services.evidence_retriever import evidence_retriever
 from app.services.vector_store import vector_store
 from app.services.nli_verifier import nli_verifier
+from app.services.metrics_calculator import calculate_response_reliability
 
 logger = logging.getLogger("trustlens.orchestrator")
 
@@ -138,22 +139,23 @@ class VerificationOrchestrator:
                 explanation=v_result["explanation"]
             ))
 
-        # 6. Calculate composite Reliability Metrics
-        total_claims = len(verified_claims)
-        denom = n_supported + n_contradicted + (0.5 * n_unverified)
-        reliability_index = round((n_supported / denom) * 100.0, 1) if denom > 0 else 100.0
-        
-        # Hallucination rate: ratio of contradicted claims over verified assertions
-        verified_denom = n_supported + n_contradicted
-        hallucination_rate = round(n_contradicted / verified_denom, 2) if verified_denom > 0 else 0.0
+        # 6. Calculate composite Reliability Metrics using transparent calculator
+        summary = calculate_response_reliability(verified_claims)
 
         metrics = ReliabilityMetrics(
-            total_claims=total_claims,
-            supported_claims=n_supported,
-            contradicted_claims=n_contradicted,
-            unverified_claims=n_unverified,
-            reliability_index=reliability_index,
-            hallucination_rate=hallucination_rate
+            total_claims=summary.total_claims,
+            supported_claims=summary.supported_count,
+            contradicted_claims=summary.contradicted_count,
+            unverified_claims=summary.unverified_count,
+            supported_proportion=summary.supported_proportion,
+            contradicted_proportion=summary.contradicted_proportion,
+            unverified_proportion=summary.unverified_proportion,
+            reliability_index=summary.reliability_index,
+            hallucination_rate=summary.hallucination_rate,
+            unverified_rate=summary.unverified_rate,
+            strict_accuracy=summary.strict_accuracy,
+            formula_definition=summary.formula_definition,
+            limitations_disclaimer=summary.limitations_disclaimer,
         )
 
         duration = round(time.time() - start_time, 3)

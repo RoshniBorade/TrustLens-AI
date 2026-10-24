@@ -1,4 +1,4 @@
-﻿const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // Evidence sub‑document schema
@@ -34,6 +34,14 @@ const EvaluationSchema = new Schema({
   supportedCount: { type: Number, default: 0 },
   contradictedCount: { type: Number, default: 0 },
   unverifiedCount: { type: Number, default: 0 },
+  supportedProportion: { type: Number, default: 0 },
+  contradictedProportion: { type: Number, default: 0 },
+  unverifiedProportion: { type: Number, default: 0 },
+  hallucinationRate: { type: Number, default: 0 },
+  unverifiedRate: { type: Number, default: 0 },
+  strictAccuracy: { type: Number, default: 0 },
+  formulaDefinition: { type: Map, of: String },
+  limitationsDisclaimer: { type: String },
   processingTimeMs: { type: Number },
   modelUsed: { type: String },
   claims: { type: [ClaimSchema], default: [] },
