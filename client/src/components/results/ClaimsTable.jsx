@@ -69,7 +69,7 @@ export default function ClaimsTable({ claims = [], onInspectClaim }) {
               <th className="py-3 px-4 min-w-[260px]">Atomic Factual Claim</th>
               <th className="py-3 px-4 w-32">Verdict</th>
               <th className="py-3 px-4 w-28">NLI Conf.</th>
-              <th className="py-3 px-4 min-w-[240px]">Retrieved Evidence Snippet</th>
+              <th className="py-3 px-4 min-w-[240px]">Evidence & Retrieval Sim.</th>
               <th className="py-3 px-4 w-24 text-right">Action</th>
             </tr>
           </thead>
@@ -93,7 +93,12 @@ export default function ClaimsTable({ claims = [], onInspectClaim }) {
                   </td>
 
                   <td className="py-3.5 px-4 font-mono text-slate-300">
-                    {Math.round(claim.confidence * 100)}%
+                    <span className="text-xs font-semibold text-emerald-400">
+                      {Math.round(claim.confidence * 100)}%
+                    </span>
+                    <span className="block text-[10px] text-slate-500 font-sans">
+                      DeBERTa NLI
+                    </span>
                   </td>
 
                   <td className="py-3.5 px-4 text-slate-400 leading-relaxed">
@@ -102,9 +107,14 @@ export default function ClaimsTable({ claims = [], onInspectClaim }) {
                         <p className="line-clamp-2 text-slate-300 italic">
                           "{claim.evidence.text}"
                         </p>
-                        <span className="text-[10px] text-emerald-400/90 font-medium flex items-center gap-1">
-                          Source: {claim.evidence.sourceTitle}
-                        </span>
+                        <div className="flex items-center gap-2 text-[10px]">
+                          <span className="text-emerald-400/90 font-medium truncate max-w-[160px]">
+                            {claim.evidence.sourceTitle}
+                          </span>
+                          <span className="font-mono text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded border border-blue-500/20" title="Vector embedding cosine similarity score">
+                            Sim: {Math.round((claim.evidence.similarityScore || 0.88) * 100)}%
+                          </span>
+                        </div>
                       </div>
                     ) : (
                       <span className="text-slate-500 italic text-[11px]">

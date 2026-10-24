@@ -86,11 +86,16 @@ export default function EvaluationForm({ onRunEvaluation, isLoading }) {
 
       {/* Main Submission Form */}
       <form onSubmit={handleSubmit} className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
-        {/* Synthetic Mock Notice */}
-        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs flex items-center gap-2">
-          <FlaskConical className="w-4 h-4 text-amber-400 shrink-0" />
-          <span>
-            <strong>UI Development Mode:</strong> Submitting will render high-fidelity demonstration evaluation reports.
+        {/* Live Evaluation Engine Notice */}
+        <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-xs flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>
+              <strong>Live AI Pipeline Active:</strong> Submissions run atomic claim extraction, real-time knowledge retrieval, DeBERTa NLI inference, and persist to MongoDB.
+            </span>
+          </div>
+          <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 shrink-0">
+            Live Engine
           </span>
         </div>
 

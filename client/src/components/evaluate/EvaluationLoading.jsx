@@ -14,7 +14,7 @@ export default function EvaluationLoading() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentStep((prev) => (prev < steps.length - 1 ? prev + 1 : prev));
-    }, 300);
+    }, 1800);
     return () => clearInterval(timer);
   }, []);
 

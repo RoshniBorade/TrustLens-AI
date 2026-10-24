@@ -47,7 +47,7 @@ export default function ClaimDetailModal({ isOpen, onClose, claim }) {
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
               <Brain className="w-4 h-4 text-purple-400" />
-              NLI Model Softmax Probabilities:
+              NLI Cross-Encoder Probabilities (DeBERTa-v3):
             </span>
             <span className="text-[11px] font-mono text-emerald-400">
               Confidence: {Math.round(claim.confidence * 100)}%
@@ -120,7 +120,7 @@ export default function ClaimDetailModal({ isOpen, onClose, claim }) {
         <div className="space-y-2">
           <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
             <BookOpen className="w-4 h-4 text-blue-400" />
-            Retrieved Ground-Truth Premise
+            Retrieved Ground-Truth Premise & Vector Similarity
           </span>
 
           {claim.evidence ? (
@@ -146,8 +146,8 @@ export default function ClaimDetailModal({ isOpen, onClose, claim }) {
 
                 <div className="flex items-center gap-3">
                   <div className="text-right">
-                    <span className="text-[10px] text-slate-500 block">Similarity</span>
-                    <span className="text-xs font-mono text-emerald-400">
+                    <span className="text-[10px] text-slate-500 block">Retrieval Similarity</span>
+                    <span className="text-xs font-mono text-blue-400 font-semibold">
                       {Math.round(claim.evidence.similarityScore * 100)}%
                     </span>
                   </div>

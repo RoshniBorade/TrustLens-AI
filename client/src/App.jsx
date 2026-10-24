@@ -9,7 +9,6 @@ import EvaluationHistory from './components/history/EvaluationHistory';
 import ClusterArchitecture from './components/architecture/ClusterArchitecture';
 import { runEvaluation } from './services/evaluationService';
 import { fetchServerHealth } from './services/api';
-import { MOCK_EVALUATIONS } from './mock/mockEvaluations';
 
 export default function App() {
   const getInitialTab = () => {
@@ -23,8 +22,8 @@ export default function App() {
   };
 
   const [activeTab, setActiveTab] = useState(getInitialTab);
-  // Initialize with seed evaluation 001 so the user can immediately inspect results if desired
-  const [currentReport, setCurrentReport] = useState(MOCK_EVALUATIONS[0]);
+  // Initialized to null in production live mode; displays EmptyState until report is generated
+  const [currentReport, setCurrentReport] = useState(null);
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [backendHealthy, setBackendHealthy] = useState(false);
   const [globalError, setGlobalError] = useState(null);

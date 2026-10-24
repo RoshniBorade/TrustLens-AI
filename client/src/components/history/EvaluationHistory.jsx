@@ -11,22 +11,24 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { getEvaluationHistory } from '../../services/evaluationService';
-import { MOCK_EVALUATIONS } from '../../mock/mockEvaluations';
 import StatusBadge from '../common/StatusBadge';
 import EmptyState from '../common/EmptyState';
 
 export default function EvaluationHistory({ onSelectReport }) {
-  const [historyList, setHistoryList] = useState(MOCK_EVALUATIONS);
-  const [loading, setLoading] = useState(false);
+  const [historyList, setHistoryList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   const loadHistory = async () => {
-    if (historyList.length === 0) setLoading(true);
+    setLoading(true);
+    setFetchError(null);
     try {
       const data = await getEvaluationHistory();
       setHistoryList(data);
     } catch (err) {
       console.error('Failed to load evaluation history:', err);
+      setFetchError(err.message || 'Failed to connect to MongoDB evaluation history.');
     } finally {
       setLoading(false);
     }

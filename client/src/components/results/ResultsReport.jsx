@@ -136,6 +136,24 @@ Tested Prompt: ${report.query}`;
         onInspectClaim={(claim) => setSelectedClaim(claim)}
       />
 
+      {/* Academic Transparency & Methodology Card */}
+      {report.metrics?.limitationsDisclaimer && (
+        <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2 text-xs">
+          <div className="flex items-center justify-between">
+            <span className="font-semibold text-slate-300 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              Formulaic Transparency & Academic Limitations
+            </span>
+            <span className="font-mono text-[10px] text-emerald-400">
+              Formula: {report.metrics?.formulaDefinition?.reliability_index || 'N_s / (N_s + N_c + 0.5*N_u)'}
+            </span>
+          </div>
+          <p className="text-slate-400 leading-relaxed text-[11px]">
+            {report.metrics.limitationsDisclaimer}
+          </p>
+        </div>
+      )}
+
       {/* Detailed Claim Evidence Modal */}
       <ClaimDetailModal
         isOpen={!!selectedClaim}

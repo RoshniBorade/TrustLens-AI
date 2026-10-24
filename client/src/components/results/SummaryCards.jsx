@@ -53,7 +53,7 @@ export default function SummaryCards({ metrics }) {
       <MetricCard
         title="Supported"
         value={supportedClaims}
-        subtitle="Entailed by verified evidence"
+        subtitle={totalClaims ? `${Math.round((supportedClaims / totalClaims) * 100)}% of claims verified` : "Entailed by verified evidence"}
         icon={CheckCircle2}
         variant="emerald"
       />
@@ -62,7 +62,7 @@ export default function SummaryCards({ metrics }) {
       <MetricCard
         title="Contradicted"
         value={contradictedClaims}
-        subtitle="Direct factual hallucinations"
+        subtitle={totalClaims ? `${Math.round((contradictedClaims / totalClaims) * 100)}% refuted assertions` : "Direct factual hallucinations"}
         icon={XCircle}
         variant="rose"
         badge={contradictedClaims > 0 ? 'Hallucination' : 'None'}
@@ -72,7 +72,7 @@ export default function SummaryCards({ metrics }) {
       <MetricCard
         title="Unverified"
         value={unverifiedClaims}
-        subtitle="Missing corroborating premise"
+        subtitle={totalClaims ? `${Math.round((unverifiedClaims / totalClaims) * 100)}% inconclusive evidence` : "Missing corroborating premise"}
         icon={HelpCircle}
         variant="amber"
       />
